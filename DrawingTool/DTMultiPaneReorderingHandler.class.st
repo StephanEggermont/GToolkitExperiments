@@ -1,0 +1,158 @@
+"
+!! Multi pane reordering handler
+In planning boards, we want to drag and drop tasks from one pane to another. THis event handler supports that. The container is the space where the dragging and dropping is to happen, the panes are the elements that contain tasks
+"
+Class {
+	#name : #DTMultiPaneReorderingHandler,
+	#superclass : #DTReorderingHandler,
+	#instVars : [
+		'panes',
+		'container'
+	],
+	#category : #'DrawingTool-Drag & Drop'
+}
+
+{ #category : #accessing }
+DTMultiPaneReorderingHandler >> container: theContainer [
+	container := theContainer
+]
+
+{ #category : #accessing }
+DTMultiPaneReorderingHandler >> dragEndEvent: anEvent [
+	"anEvent consumed: true."
+	| draggable |
+	draggable := anEvent currentTarget.
+	overlay removeChild: draggable.
+	parent replaceChild: placeholder with: draggable.
+	overlay detach.
+
+	anEvent currentTarget dispatchEvent: BlPullEndEvent new
+]
+
+{ #category : #accessing }
+DTMultiPaneReorderingHandler >> dragEvent: anEvent [
+	| dragPosition dragDelta aNewPosition |
+	dragPosition := anEvent currentTarget
+		globalPointToParent: anEvent position.
+	self movePlaceholderIfOverOtherChild: anEvent.
+	dragDelta := dragPosition
+		- (dragStartPosition ifNil: [ dragStartPosition := dragPosition ]).
+	dragDelta := self computePullDelta: dragDelta.
+	aNewPosition := (originalPosition
+		ifNil: [ originalPosition := anEvent currentTarget position ])
+		+ dragDelta.
+	allowedOutOfBounds
+		ifFalse: [ | aMaxPosition |
+			aMaxPosition := anEvent currentTarget hasParent
+				ifTrue: [ anEvent currentTarget parent extent - anEvent currentTarget extent ]
+				ifFalse: [ 0 @ 0 ].
+			aNewPosition := aNewPosition min: aMaxPosition max: 0 @ 0 ].
+	anEvent currentTarget relocate: aNewPosition.
+	anEvent consumed: true.
+	anEvent currentTarget
+		dispatchEvent:
+			(BlPullEvent new
+				initialPosition: originalPosition;
+				oldPosition: dragPosition;
+				newPosition: aNewPosition;
+				delta: dragDelta)
+]
+
+{ #category : #accessing }
+DTMultiPaneReorderingHandler >> dragStartEvent: anEvent [
+	|draggable |
+	anEvent consumed: true.
+	draggable := anEvent currentTarget.
+	parent := panes detect: [ :aPane | aPane containsGlobalPoint: anEvent position ].
+	overlay := BlOverlayElement on: container.
+	container parent addChild: overlay.
+
+	"drag start position in parent"
+	dragStartPosition := draggable globalPointToParent: anEvent position.
+
+	"element position in parent"
+	originalPosition := draggable position.
+	placeholder := self placeholderFor: draggable.
+	parent replaceChild: draggable with: placeholder.
+	overlay addChild: draggable.
+
+	anEvent currentTarget dispatchEvent: BlPullStartEvent new
+]
+
+{ #category : #accessing }
+DTMultiPaneReorderingHandler >> movePlaceholderIfOverOtherChild: anEvent [
+	| mouseOverOther |
+	self movePlaceholderToCorrectParent: anEvent.
+	mouseOverOther := placeholder.
+	parent children
+		do: [ :each | 
+			(each containsGlobalPoint: anEvent position)
+				ifTrue: [ mouseOverOther := each ] ].
+	mouseOverOther = placeholder
+		ifFalse: [ | index |
+			index := parent childIndexOf: mouseOverOther.
+			parent removeChild: placeholder.
+			parent addChild: placeholder at: index ]
+]
+
+{ #category : #accessing }
+DTMultiPaneReorderingHandler >> movePlaceholderToCorrectParent: anEvent [
+	| currentPane |
+	currentPane := panes
+		detect: [ :aPane | aPane containsGlobalPoint: anEvent position ]
+		ifNone: [ parent ].
+	currentPane = parent
+		ifFalse: [ parent removeChild: placeholder.
+			parent := currentPane.
+			parent addChild: placeholder ]
+]
+
+{ #category : #accessing }
+DTMultiPaneReorderingHandler >> panes: thePanes [
+	panes := thePanes
+]
+
+{ #category : #accessing }
+DTMultiPaneReorderingHandler >> threeColumns [
+	<gtExample>
+	|pane columnBlock toDo doing done columns handler|
+	pane := BlElement new
+	size: 800 @ 600;
+	layout: BlFlowLayout new;
+	background: (Color lightGray muchLighter);
+	padding: (BlInsets all: 2);
+	layout: BlLinearLayout horizontal;
+	yourself.
+	
+columnBlock  := [BlElement new
+	border: (BlBorder paint: Color lightGray lighter);
+	background: Color yellow muchLighter muchLighter lighter;
+	layout: BlFlowLayout new;
+	margin: (BlInsets all: 2);
+	padding: (BlInsets all: 2);
+	constraintsDo: [ :c |
+		c horizontal matchParent.
+		c vertical matchParent]].
+		
+toDo := columnBlock value.
+doing := columnBlock value.
+done := columnBlock value.
+columns := { toDo . doing . done}.
+
+handler := DTMultiPaneReorderingHandler new
+	container: pane;
+	panes: columns;
+	yourself.
+
+pane addChildren: columns. 	
+10 timesRepeat: [ |element|
+	element := BlElement new
+		size: 80 @ 60;
+		border: (BlBorder paint: Color black);
+		background: Color random;
+		margin: (BlInsets all: 2);
+		addEventHandler: handler;
+		yourself.
+	toDo addChild: element].
+^pane
+]
