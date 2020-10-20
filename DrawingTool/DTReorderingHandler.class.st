@@ -190,7 +190,7 @@ DTReorderingHandler >> movePlaceholderIfOverOtherChild: anEvent [
 DTReorderingHandler >> placeholderFor: draggable [ 
 	^BlElement new
 		size: draggable size;
-		border: draggable border;
+		border: (draggable border copyWithStyle: BlStrokeStyle dashed);
 		margin: draggable margin;
 		background: (draggable background paint color alpha: 0.2);
 		yourself
