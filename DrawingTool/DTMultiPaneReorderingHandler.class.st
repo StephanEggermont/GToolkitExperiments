@@ -13,6 +13,61 @@ Class {
 }
 
 { #category : #accessing }
+DTMultiPaneReorderingHandler >> cards [
+	<gtExample>
+	|plusSize minSize bar pane scene aSpace|
+plusSize := BrButton new 
+				margin: (BlInsets top: 10 left: 0 bottom: 10 right: 10);
+				
+				look: BrRightButtonLook;
+				icon: BrGlamorousVectorIcons add;
+				action: [ |subject|
+					subject := ((pane childAt: 1) childAt: 1).
+					subject size: (subject size + ( 20@20))];
+				yourself.
+minSize := BrButton new 
+				margin: (BlInsets top: 10 left: 10 bottom: 10 right: 0);
+				
+				look: BrLeftButtonLook;
+				icon: BrGlamorousVectorIcons remove;
+				action: [ |subject|
+					subject := ((pane childAt: 1) childAt: 1).
+					subject size: ((subject size - ( 20@20)) max: (10 @ 10))];
+				yourself.
+bar := BlElement new
+	size: 800 @ 40;
+	background: (Color lightGray muchLighter);
+	layout: (BlLinearLayout horizontal);
+	constraintsDo: [ :c |
+		c horizontal matchParent.
+		c vertical exact: 40 ];
+	addChild: minSize;
+	addChild: plusSize;
+	yourself.
+pane := self threeColumns 
+	constraintsDo: [ :c |
+		c horizontal matchParent.
+		c vertical matchParent].
+scene := BlElement new
+	constraintsDo: [ :c |
+		c horizontal matchParent.
+		c vertical matchParent];
+	layout: (BlLinearLayout vertical);
+	addChild: bar;
+	addChild: pane;
+	requestLayout;
+	yourself.
+
+	aSpace := BlSpace new
+		addChild: scene;
+		extent: 800@600;
+		title: 'Cards'.
+
+	
+	^ aSpace show	
+]
+
+{ #category : #accessing }
 DTMultiPaneReorderingHandler >> container: theContainer [
 	container := theContainer
 ]
