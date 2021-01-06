@@ -33,7 +33,7 @@ CDLocalEnvironment >> gtReleasesFor: aView [
 		items: [ ((self releasesPath asFileReference ) directories 
 			collect: [ :each | CDGtRelease new 
 				releasesPath: self releasesPath;
-				releaseName: each basenameWithIndicator;
+				releaseName: each basename;
 				yourself ]) sorted: [ :a :b | a releaseName < b releaseName]];
 		column: 'Run' icon: #gtButtonRun width: 50;
 		column: 'Name' translated text: [ :each | 
