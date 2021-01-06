@@ -3,7 +3,8 @@ Class {
 	#superclass : #Object,
 	#instVars : [
 		'lastUpdated',
-		'latestVersion'
+		'latestVersion',
+		'zipName'
 	],
 	#category : #ContinuousDelivery
 }
@@ -11,7 +12,7 @@ Class {
 { #category : #accessing }
 CDGToolkitUpdater >> downloadUpdate: aLocalEnvironment [
 	| downloadLink |
-	downloadLink := 'https://dl.feenk.com/gt/GlamorousToolkitLinux64-release.zip'.
+	downloadLink := 'https://dl.feenk.com/gt/', zipName.
 	ZnClient new
 		url: downloadLink;
 		downloadTo: aLocalEnvironment downloadPath
@@ -21,7 +22,7 @@ CDGToolkitUpdater >> downloadUpdate: aLocalEnvironment [
 CDGToolkitUpdater >> extractUpdate: aLocalEnvironment [
 	| command |
 	command := 'cd "' , aLocalEnvironment downloadPath fullName
-		, '" && unzip GlamorousToolkitLinux64-release.zip -d "'
+		, '" && unzip ', zipName, ' -d "'
 		, aLocalEnvironment releasesPath fullName , '/' , latestVersion
 		, '"'.
 	LibC runCommand: command.
@@ -50,7 +51,7 @@ CDGToolkitUpdater >> latestVersion [
 CDGToolkitUpdater >> moveDownloadedZip: aLocalEnvironment [
 	| command |
 	command := 'mv "' , aLocalEnvironment downloadPath fullName
-		, '/GlamorousToolkitLinux64-release.zip" "'
+		, '/',zipName,'" "'
 		, aLocalEnvironment releasesPath fullName , '/' , latestVersion
 		, '"'.
 	LibC runCommand: command.
@@ -59,6 +60,7 @@ CDGToolkitUpdater >> moveDownloadedZip: aLocalEnvironment [
 
 { #category : #accessing }
 CDGToolkitUpdater >> updateIn: aLocalEnvironment [
+	zipName := 'GlamorousToolkit', CDPlatform current platformName, '64-release.zip'. 
 	self downloadUpdate: aLocalEnvironment.
 	self extractUpdate: aLocalEnvironment.
 	self moveDownloadedZip: aLocalEnvironment

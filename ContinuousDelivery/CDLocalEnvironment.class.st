@@ -30,12 +30,12 @@ CDLocalEnvironment >> gtReleasesFor: aView [
 	^ aView columnedList
 		title: 'Releases' translated;
 		priority: 55;
-		items: [ ((self releasesPath asFileReference ) children 
+		items: [ ((self releasesPath asFileReference ) directories 
 			collect: [ :each | CDGtRelease new 
 				releasesPath: self releasesPath;
 				releaseName: each basenameWithIndicator;
 				yourself ]) sorted: [ :a :b | a releaseName < b releaseName]];
-		column: 'Run' icon: #gtButtonRun width: 40;
+		column: 'Run' icon: #gtButtonRun width: 50;
 		column: 'Name' translated text: [ :each | 
 			each releaseName ];
 		column: 'Size' translated text: [ :each | each imageSize ] width: 80;

@@ -3,7 +3,8 @@ Class {
 	#superclass : #Object,
 	#instVars : [
 		'releasesPath',
-		'releaseName'
+		'releaseName',
+		'platformName'
 	],
 	#category : #ContinuousDelivery
 }
@@ -12,8 +13,8 @@ Class {
 CDGtRelease >> command [
 	| command |
 	command := 'cd "' , self runPath
-		, '" &&  "'
-		, './glamoroustoolkit" "GlamorousToolkit.image" "--no-quit" "--interactive" &'.
+		, '" && '
+		, CDPlatform current runCommand.
 	^command
 ]
 
@@ -26,16 +27,6 @@ CDGtRelease >> gtButtonRun [
 	runButton icon: BrGlamorousIcons play.
 	runButton action: [ self run].
 	^ runButton
-]
-
-{ #category : #accessing }
-CDGtRelease >> gtButtonRun: anEnvironment [
-	self halt
-]
-
-{ #category : #accessing }
-CDGtRelease >> gtButtonRun: aMe env: anEnvironment [
-	self halt
 ]
 
 { #category : #accessing }
@@ -82,5 +73,6 @@ CDGtRelease >> run [
 
 { #category : #accessing }
 CDGtRelease >> runPath [
-	^releasesPath fullName, '/', releaseName, 'GlamorousToolkitLinux64-', releaseName
+	^releasesPath fullName, '/', releaseName, 'GlamorousToolkit', 
+	CDPlatform current platformName, '64-', releaseName
 ]
