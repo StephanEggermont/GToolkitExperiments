@@ -35,10 +35,10 @@ CDLocalEnvironment >> gtReleasesFor: aView [
 				releasesPath: self releasesPath;
 				releaseName: each basenameWithIndicator;
 				yourself ]) sorted: [ :a :b | a releaseName < b releaseName]];
+		column: 'Run' icon: #gtButtonRun width: 40;
 		column: 'Name' translated text: [ :each | 
 			each releaseName ];
-		column: 'Run' icon: #gtButtonRun width: 100;
-		column: 'Size' translated text: [ :each | each imageSize ];
+		column: 'Size' translated text: [ :each | each imageSize ] width: 80;
 		column: 'Changed' translated text: [ :each | each modificationTime]
 ]
 
