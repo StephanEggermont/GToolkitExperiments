@@ -9,7 +9,7 @@ Class {
 
 { #category : #accessing }
 CDLocalEnvironment >> defaultRootPath [
-	^(OSEnvironment current at: 'GTPATH' ifAbsent: ['/home/stephan/Documents/gthome']) asPath
+	^(OSEnvironment current at: 'GTPATH' ifAbsent: [FileLocator home / 'gt']) asPath
 ]
 
 { #category : #accessing }
