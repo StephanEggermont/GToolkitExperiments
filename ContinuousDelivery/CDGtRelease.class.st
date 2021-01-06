@@ -73,6 +73,6 @@ CDGtRelease >> run [
 
 { #category : #accessing }
 CDGtRelease >> runPath [
-	^releasesPath fullName, '/', releaseName, 'GlamorousToolkit', 
-	CDPlatform current platformName, '64-', releaseName
+	^(releasesPath / releaseName, 'GlamorousToolkit', 
+	CDPlatform current platformName, '64-', releaseName) fullName
 ]

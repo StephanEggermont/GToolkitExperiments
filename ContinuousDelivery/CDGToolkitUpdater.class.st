@@ -23,7 +23,7 @@ CDGToolkitUpdater >> extractUpdate: aLocalEnvironment [
 	| command |
 	command := 'cd "' , aLocalEnvironment downloadPath fullName
 		, '" && unzip ', zipName, ' -d "'
-		, aLocalEnvironment releasesPath fullName , '/' , latestVersion
+		, (aLocalEnvironment releasesPath / latestVersion) fullName
 		, '"'.
 	LibC runCommand: command.
 	^ command
@@ -50,9 +50,8 @@ CDGToolkitUpdater >> latestVersion [
 { #category : #accessing }
 CDGToolkitUpdater >> moveDownloadedZip: aLocalEnvironment [
 	| command |
-	command := 'mv "' , aLocalEnvironment downloadPath fullName
-		, '/',zipName,'" "'
-		, aLocalEnvironment releasesPath fullName , '/' , latestVersion
+	command := 'mv "' ,( aLocalEnvironment downloadPath / zipName) fullName,'" "'
+		, (aLocalEnvironment releasesPath / latestVersion) fullName
 		, '"'.
 	LibC runCommand: command.
 	^ command
