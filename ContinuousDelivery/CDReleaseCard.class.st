@@ -10,9 +10,12 @@ Class {
 { #category : #accessing }
 CDReleaseCard >> initialize [
 	super initialize.
-	self size: 100@60;
+	self size: 120@80;
 	background: (Color lightGray muchLighter);
 	layout: (BlLinearLayout vertical);
+	margin: (BlInsets all: 5);
+	padding: (BlInsets all: 5);
+
 	addChild: (BrEditableLabel new
 	    look:(BrGlamorousEditableLabelLook new
             glamorousCodeFont;
@@ -20,7 +23,16 @@ CDReleaseCard >> initialize [
             defaultBackground: Color lightYellow;
             fontSize: 10);
    	 text: 'Prototype';
- 	   yourself).	
+		when: BrEditorAcceptWish
+		do: [ :aWish | 	| valueString |
+			valueString := aWish text asString trim.
+			release imageData image: valueString.
+			release commit.
+			];
+ 	   yourself);
+ 	addChild: (BrLabel new
+ 		look: BrGlamorousLabelLook;
+ 		text: '')	
 ]
 
 { #category : #accessing }
@@ -32,5 +44,6 @@ CDReleaseCard >> release: aGtRelease [
 { #category : #accessing }
 CDReleaseCard >> updateContents [
 	self background: release imageData color.
-	
+	(self childAt: 1) text: release imageData image.
+	(self childAt: 2) text: release releaseName
 ]

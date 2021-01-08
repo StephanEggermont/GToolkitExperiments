@@ -19,6 +19,14 @@ CDGtRelease >> command [
 ]
 
 { #category : #accessing }
+CDGtRelease >> commit [
+	|reference|
+	reference := (releasesPath / releaseName / 'imageData.json') asFileReference.
+	reference writeStreamDo: [ :w |
+		w nextPutAll: (STON toString: imageData)]
+]
+
+{ #category : #accessing }
 CDGtRelease >> gtButtonRun [
 	|runButton|
 	runButton := BrButton new.
