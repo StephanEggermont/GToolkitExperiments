@@ -32,7 +32,7 @@ CDGtRelease >> gtButtonRun [
 	runButton := BrButton new.
 	runButton look: (BrGlamorousButtonRectangularLook + BrGlamorousButtonExteriorLook + 
 		(BrGlamorousButtonIconLook  new)).
-	runButton icon: BrGlamorousIcons play.
+	runButton icon: BrGlamorousVectorIcons play.
 	runButton action: [ self run].
 	^ runButton
 ]
@@ -56,7 +56,7 @@ CDGtRelease >> modificationTime [
 	|image|
 	image := self runPath asFileReference / 'GlamorousToolkit.image'.
 	image exists ifFalse: [^'N/A'].
-	^ image modificationTime asString
+	^ image modificationTime asStringYMDHM
 ]
 
 { #category : #accessing }
