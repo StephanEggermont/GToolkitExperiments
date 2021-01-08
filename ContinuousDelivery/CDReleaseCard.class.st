@@ -13,15 +13,15 @@ CDReleaseCard >> initialize [
 	self size: 120@90;
 	background: (Color lightGray muchLighter);
 	layout: (BlLinearLayout vertical);
-	margin: (BlInsets all: 5);
-	padding: (BlInsets all: 5);
+	margin: (BlInsets all: 6);
+	padding: (BlInsets top: 2 left: 2 bottom: 2 right: 2);
 
 	addChild: (BrEditableLabel new
-	    look:(BrGlamorousEditableLabelLook new
-			defaultBackground: Color transparent;
- 			glamorousCodeFont;
-           fontSize: 10);
-   	 text: 'Prototype';
+	    look:(CDEditableLabelLook new
+			glamorousRegularFont;
+			fontSize: 14);
+		padding: (BlInsets all: 2);
+    	text: 'Prototype';
 		when: BrEditorAcceptWish
 		do: [ :aWish | 	| valueString |
 			valueString := aWish text asString trim.
@@ -31,12 +31,15 @@ CDReleaseCard >> initialize [
  	   yourself);
  	addChild: (BrLabel new
  		look: BrGlamorousLabelLook;
+		padding: (BlInsets left: 2);
  		text: '');
   	addChild: (BrLabel new
  		look: BrGlamorousLabelLook;
+		padding: (BlInsets left: 2);
  		text: '');
   	addChild: (BrLabel new
  		look: BrGlamorousLabelLook;
+		padding: (BlInsets left: 2);
  		text: '')
 ]
 
