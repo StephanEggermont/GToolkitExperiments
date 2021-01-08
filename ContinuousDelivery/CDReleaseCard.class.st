@@ -18,10 +18,9 @@ CDReleaseCard >> initialize [
 
 	addChild: (BrEditableLabel new
 	    look:(BrGlamorousEditableLabelLook new
-            glamorousCodeFont;
-            defaultForeground: Color black;
-            defaultBackground: Color lightYellow;
-            fontSize: 10);
+			defaultBackground: Color transparent;
+ 			glamorousCodeFont;
+           fontSize: 10);
    	 text: 'Prototype';
 		when: BrEditorAcceptWish
 		do: [ :aWish | 	| valueString |
