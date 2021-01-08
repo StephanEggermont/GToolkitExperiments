@@ -25,6 +25,30 @@ CDLocalEnvironment >> ensureDirectories [
 ]
 
 { #category : #accessing }
+CDLocalEnvironment >> gtCardsFor: aView [
+	<gtView>
+	^ aView explicit
+		title: 'Cards' translated;
+		priority: 45;
+		stencil: [ |items pane|
+			items := ((self releasesPath asFileReference ) directories 
+				collect: [ :each | CDGtRelease new 
+					releasesPath: self releasesPath;
+					releaseName: each basename;
+					yourself ]).
+			pane := BlElement new
+				size: 800 @ 600;
+				layout: BlFlowLayout new;
+				background: (Color lightGray muchLighter);
+				padding: (BlInsets all: 2);
+				layout: BlLinearLayout horizontal;
+				yourself.
+			items do: [:item | pane addChild: (CDReleaseCard new release: item; yourself)].
+			pane]
+		 
+]
+
+{ #category : #accessing }
 CDLocalEnvironment >> gtReleasesFor: aView [
 	<gtView>
 	^ aView columnedList

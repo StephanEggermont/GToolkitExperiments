@@ -4,7 +4,7 @@ Class {
 	#instVars : [
 		'releasesPath',
 		'releaseName',
-		'platformName'
+		'imageData'
 	],
 	#category : #ContinuousDelivery
 }
@@ -30,6 +30,12 @@ CDGtRelease >> gtButtonRun [
 ]
 
 { #category : #accessing }
+CDGtRelease >> imageData [
+	^imageData ifNil: [self readOrCreateImageData . imageData] 
+	
+]
+
+{ #category : #accessing }
 CDGtRelease >> imageSize [
 	|image|
 	image := self runPath asFileReference / 'GlamorousToolkit.image'.
@@ -43,6 +49,15 @@ CDGtRelease >> modificationTime [
 	image := self runPath asFileReference / 'GlamorousToolkit.image'.
 	image exists ifFalse: [^'N/A'].
 	^ image modificationTime asString
+]
+
+{ #category : #accessing }
+CDGtRelease >> readOrCreateImageData [
+	|reference|
+	reference := (releasesPath / releaseName / 'imageData.json') asFileReference.
+	reference exists 
+		ifFalse: [imageData := CDImageData new]
+		ifTrue: [imageData := STON fromString:reference contents]
 ]
 
 { #category : #accessing }
