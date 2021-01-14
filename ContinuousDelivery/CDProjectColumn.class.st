@@ -37,7 +37,9 @@ CDProjectColumn >> initialize [
 		do: [ :aWish | 	| valueString |
 			valueString := aWish text asString trim.
 			project := valueString.
-			self commit.
+			pane childrenDo: [ :card | 
+				card release imageData project: project.
+				card release commit].
 			];
  	   yourself).
 	bar addChild: label.

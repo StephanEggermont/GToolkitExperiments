@@ -44,6 +44,11 @@ CDReleaseCard >> initialize [
 ]
 
 { #category : #accessing }
+CDReleaseCard >> release [
+	^release
+]
+
+{ #category : #accessing }
 CDReleaseCard >> release: aGtRelease [
 	release := aGtRelease.
 	self updateContents 
