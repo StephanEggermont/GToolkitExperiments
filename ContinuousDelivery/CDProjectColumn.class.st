@@ -18,6 +18,7 @@ CDProjectColumn >> initialize [
 	|bar |
 	super initialize.
 	self layout: (BlLinearLayout vertical).
+	self border: (BlBorder paint: Color black lighter).
 	bar := BlElement new
 		size: 300 @ 40;
 		background: (Color lightGray muchLighter);
@@ -44,7 +45,7 @@ CDProjectColumn >> initialize [
  	   yourself).
 	bar addChild: label.
 	self size: 300@600;
-	border: (BlBorder paint: Color lightGray muchLighter width: 11).
+	border: (BlBorder paint: Color lightGray muchLighter width: 1).
 	pane := BlElement new
 		border: (BlBorder paint: Color lightGray lighter);
 		background: Color yellow muchLighter muchLighter lighter;
@@ -54,7 +55,6 @@ CDProjectColumn >> initialize [
 		constraintsDo: [ :c |
 			c horizontal matchParent.
 			c vertical matchParent].
-	
 	self addChild: bar.
 	self addChild: pane
 ]

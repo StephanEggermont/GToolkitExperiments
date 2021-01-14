@@ -40,7 +40,10 @@ CDReleaseCard >> initialize [
   	addChild: (BrLabel new
  		look: BrGlamorousLabelLook;
 		padding: (BlInsets left: 2);
- 		text: '')
+ 		text: '').
+ 	self addEventHandler: (BlEventHandler on: BlPullEndEvent do: [
+ 		release imageData project: self parent parent project.
+ 		release commit ]).
 ]
 
 { #category : #accessing }
