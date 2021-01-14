@@ -3,7 +3,8 @@ Class {
 	#superclass : #BlElement,
 	#instVars : [
 		'project',
-		'pane'
+		'pane',
+		'label'
 	],
 	#category : #'ContinuousDelivery-ContinuousDelivery'
 }
@@ -14,7 +15,7 @@ CDProjectColumn >> commit [
 
 { #category : #accessing }
 CDProjectColumn >> initialize [
-	|bar label|
+	|bar |
 	super initialize.
 	self layout: (BlLinearLayout vertical).
 	bar := BlElement new
@@ -41,7 +42,7 @@ CDProjectColumn >> initialize [
  	   yourself).
 	bar addChild: label.
 	self size: 300@600;
-	border: (BlBorder paint: Color lightGray muchLighter width: 1).
+	border: (BlBorder paint: Color lightGray muchLighter width: 11).
 	pane := BlElement new
 		border: (BlBorder paint: Color lightGray lighter);
 		background: Color yellow muchLighter muchLighter lighter;
@@ -68,5 +69,6 @@ CDProjectColumn >> project [
 
 { #category : #accessing }
 CDProjectColumn >> project: aString [
-	project := aString
+	project := aString.
+	label text: project
 ]

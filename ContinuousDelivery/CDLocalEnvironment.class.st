@@ -8,6 +8,19 @@ Class {
 }
 
 { #category : #accessing }
+CDLocalEnvironment >> columnsFor: items handler: handler [ 
+	|columns|
+	columns := OrderedCollection new.
+	columns add: (CDProjectColumn new project: ''; yourself).
+	items do: [ :each | |foundColumn projectTitle|
+		projectTitle := each imageData project.
+		foundColumn := columns detect: [:column | column project =  projectTitle]
+			ifNone: [columns add: (CDProjectColumn new project: projectTitle; yourself)].
+		foundColumn pane addChild: (CDReleaseCard new release: each; addEventHandler: handler; yourself)].
+	^columns.
+]
+
+{ #category : #accessing }
 CDLocalEnvironment >> defaultRootPath [
 	^(OSEnvironment current at: 'GTPATH' ifAbsent: [FileLocator home / 'gt']) asPath
 ]
@@ -27,6 +40,7 @@ CDLocalEnvironment >> ensureDirectories [
 { #category : #accessing }
 CDLocalEnvironment >> gtCardsFor: aView [
 	<gtView>
+	| columns handler |
 	^ aView explicit
 		title: 'Cards' translated;
 		priority: 45;
@@ -43,7 +57,13 @@ CDLocalEnvironment >> gtCardsFor: aView [
 				padding: (BlInsets all: 2);
 				layout: BlLinearLayout horizontal;
 				yourself.
-			items do: [:item | pane addChild: (CDReleaseCard new release: item; yourself)].
+			handler := DTMultiPaneReorderingHandler new.
+
+			columns := self columnsFor: items handler: handler.
+			handler
+				container: pane;
+				panes: (columns collect: #pane).
+			pane addChildren: columns.
 			pane]
 		 
 ]
