@@ -43,10 +43,15 @@ CDProjectColumn >> initialize [
 	self size: 300@600;
 	border: (BlBorder paint: Color lightGray muchLighter width: 1).
 	pane := BlElement new
+		border: (BlBorder paint: Color lightGray lighter);
+		background: Color yellow muchLighter muchLighter lighter;
+		layout: BlFlowLayout new;
+		margin: (BlInsets all: 2);
+		padding: (BlInsets all: 2);
 		constraintsDo: [ :c |
 			c horizontal matchParent.
 			c vertical matchParent].
-		
+	
 	self addChild: bar.
 	self addChild: pane
 ]

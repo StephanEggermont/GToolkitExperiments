@@ -173,7 +173,6 @@ DTMultiPaneReorderingHandler >> threeColumns [
 	|pane columnBlock toDo doing done columns handler|
 	pane := BlElement new
 	size: 800 @ 600;
-	layout: BlFlowLayout new;
 	background: (Color lightGray muchLighter);
 	padding: (BlInsets all: 2);
 	layout: BlLinearLayout horizontal;
