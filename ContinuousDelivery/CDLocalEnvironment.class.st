@@ -51,7 +51,6 @@ CDLocalEnvironment >> gtCardsFor: aView [
 					releaseName: each basename;
 					yourself ]).
 			pane := BlElement new
-				size: 800 @ 600;
 				layout: BlFlowLayout new;
 				background: (Color lightGray muchLighter);
 				padding: (BlInsets all: 2);
@@ -63,8 +62,9 @@ CDLocalEnvironment >> gtCardsFor: aView [
 			handler
 				container: pane;
 				panes: (columns collect: #pane).
+			pane size: (300*columns size @ 800).
 			pane addChildren: columns.
-			pane]
+			pane asScalableElement]
 		 
 ]
 
