@@ -16,6 +16,7 @@ CDProjectColumn >> commit [
 CDProjectColumn >> initialize [
 	|bar label|
 	super initialize.
+	self layout: (BlLinearLayout vertical).
 	bar := BlElement new
 		size: 300 @ 40;
 		background: (Color lightGray muchLighter);
