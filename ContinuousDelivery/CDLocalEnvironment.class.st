@@ -63,8 +63,7 @@ CDLocalEnvironment >> gtCardsFor: aView [
 				container: pane;
 				panes: (columns collect: #pane).
 			pane size: (300*columns size @ 800).
-			pane addChildren: columns.
-			pane asScalableElement]
+			pane addChildren: columns]
 		 
 ]
 
