@@ -2,10 +2,18 @@ Class {
 	#name : #CDLocalEnvironment,
 	#superclass : #Object,
 	#instVars : [
-		'rootPath'
+		'rootPath',
+		'server'
 	],
 	#category : #'ContinuousDelivery-ContinuousDelivery'
 }
+
+{ #category : #accessing }
+CDLocalEnvironment class >> on: aCDServer [
+	^ self new
+		server: aCDServer;
+		yourself
+]
 
 { #category : #accessing }
 CDLocalEnvironment >> columnsFor: items handler: handler [ 
@@ -49,7 +57,7 @@ CDLocalEnvironment >> gtButton [
 		label: 'Open Development Environment';
 		look: BrLeftButtonLook;
 		icon: BrGlamorousVectorIcons gt;
-		action: [  ];
+		action: [ GtWorld openDefault ];
 		yourself
 ]
 
@@ -170,6 +178,11 @@ CDLocalEnvironment >> runButton [
 		label: 'Check & Download Update';
 		look: BrRightButtonLook;
 		icon: BrGlamorousVectorIcons play;
-		action: [  ];
+		action: [ server run ];
 		yourself
+]
+
+{ #category : #accessing }
+CDLocalEnvironment >> server: aCDServer [ 
+	server := aCDServer
 ]

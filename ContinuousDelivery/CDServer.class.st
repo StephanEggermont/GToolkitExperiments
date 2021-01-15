@@ -27,6 +27,14 @@ CDServer >> localEnvironment [
 ]
 
 { #category : #accessing }
+CDServer >> openAsApplication [
+	localEnvironment openCardsInSpace.
+	GtWorld allInstances do: [ :eachWorld | eachWorld removeShutdownListener ].
+	GtWorld allInstances do: [ :eachWorld | eachWorld close ].
+	Smalltalk snapshot: true andQuit: false
+]
+
+{ #category : #accessing }
 CDServer >> run [
 	(localEnvironment hasRelease: gtoolkitUpdater latestVersion) ifFalse: [
 		gtoolkitUpdater getLatestVersion.
