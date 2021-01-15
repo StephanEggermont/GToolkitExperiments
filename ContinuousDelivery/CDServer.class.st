@@ -28,6 +28,7 @@ CDServer >> localEnvironment [
 
 { #category : #accessing }
 CDServer >> run [
-	(localEnvironment hasRelease: gtoolkitUpdater latestVersion) ifFalse: 
-		[gtoolkitUpdater updateIn: localEnvironment]
+	(localEnvironment hasRelease: gtoolkitUpdater latestVersion) ifFalse: [
+		gtoolkitUpdater getLatestVersion.
+		gtoolkitUpdater updateIn: localEnvironment]
 ]
