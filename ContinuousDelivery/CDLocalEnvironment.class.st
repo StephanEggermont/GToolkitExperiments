@@ -3,7 +3,8 @@ Class {
 	#superclass : #Object,
 	#instVars : [
 		'rootPath',
-		'server'
+		'server',
+		'cardView'
 	],
 	#category : #'ContinuousDelivery-ContinuousDelivery'
 }
@@ -136,7 +137,9 @@ CDLocalEnvironment >> openCardsInSpace [
 | space |
 	space := BlSpace new.
 	(self gtCardsFor: GtPhlowEmptyView new)
-   	asElementDo: [ :anAppElement | space addChild: anAppElement ].
+   	asElementDo: [ :anAppElement | 
+   		cardView := anAppElement.
+   		space addChild: anAppElement ].
 	space title: 'Launcher'.
 	space show
 ]
@@ -178,7 +181,8 @@ CDLocalEnvironment >> runButton [
 		label: 'Check & Download Update';
 		look: BrRightButtonLook;
 		icon: BrGlamorousVectorIcons play;
-		action: [ server run ];
+		action: [ CDServer new run.
+			cardView requestLayout ];
 		yourself
 ]
 

@@ -53,12 +53,16 @@ CDReleaseCard >> initialize [
 
 { #category : #accessing }
 CDReleaseCard >> menuItems [
-^#(blue yellow red green) collect: [ :each | |color|
+
+	| menu |
+	menu := #(blue yellow red green) collect: [ :each | |color|
     color := (Color perform: ('light', each capitalized) asSymbol).
     ('Change to ',each capitalized) -> [ :e | 
         e background: color.
         e release imageData color: color.
         e release commit]].
+    ^menu copyWith: (#'Run' -> [ :e | e release run]).
+ 
 ]
 
 { #category : #accessing }
