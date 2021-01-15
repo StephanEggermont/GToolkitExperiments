@@ -19,8 +19,12 @@ CDProjectColumn >> initialize [
 	super initialize.
 	self layout: (BlLinearLayout vertical).
 	self border: (BlBorder paint: Color black lighter).
+	self constraintsDo: [ :c |
+		c horizontal matchParent.
+		c vertical matchParent].
+
 	bar := BlElement new
-		size: 300 @ 40;
+		size: 100 @ 40;
 		background: (Color lightGray muchLighter);
 		layout: (BlLinearLayout horizontal);
 		constraintsDo: [ :c |
@@ -29,7 +33,7 @@ CDProjectColumn >> initialize [
 		yourself.
 	label :=(BrEditableLabel new
 		margin: (BlInsets all: 5);
-	    look:(BrGlamorousEditableLabelLook new
+	    look:(CDEditableLabelLook new
 			defaultBackground: Color transparent;
  			glamorousCodeFont;
            fontSize: 10);
@@ -44,8 +48,7 @@ CDProjectColumn >> initialize [
 			];
  	   yourself).
 	bar addChild: label.
-	self size: 300@600;
-	border: (BlBorder paint: Color lightGray muchLighter width: 1).
+	self border: (BlBorder paint: Color lightGray muchLighter width: 1).
 	pane := BlElement new
 		border: (BlBorder paint: Color lightGray lighter);
 		background: Color yellow muchLighter muchLighter lighter;

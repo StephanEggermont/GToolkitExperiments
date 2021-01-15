@@ -38,33 +38,66 @@ CDLocalEnvironment >> ensureDirectories [
 ]
 
 { #category : #accessing }
+CDLocalEnvironment >> gtButton [
+	^ BrButton new
+		margin:
+			(BlInsets
+				top: 10
+				left: 10
+				bottom: 10
+				right: 0);
+		label: 'Open Development Environment';
+		look: BrLeftButtonLook;
+		icon: BrGlamorousVectorIcons gt;
+		action: [  ];
+		yourself
+]
+
+{ #category : #accessing }
 CDLocalEnvironment >> gtCardsFor: aView [
 	<gtView>
 	| columns handler |
 	^ aView explicit
 		title: 'Cards' translated;
 		priority: 45;
-		stencil: [ |items pane|
-			items := ((self releasesPath asFileReference ) directories 
-				collect: [ :each | CDGtRelease new 
-					releasesPath: self releasesPath;
-					releaseName: each basename;
-					yourself ]).
+		stencil: [ | items pane bar scene gtButton runButton |
+			items := self releases.
+			gtButton := self gtButton.
+			runButton := self runButton.
+			bar := BlElement new
+				size: 800 @ 40;
+				background: Color lightGray muchLighter;
+				layout: BlLinearLayout horizontal;
+				constraintsDo: [ :c | 
+					c horizontal matchParent.
+					c vertical exact: 40 ];
+				addChild: gtButton;
+				addChild: runButton;
+				yourself.
 			pane := BlElement new
-				layout: BlFlowLayout new;
-				background: (Color lightGray muchLighter);
+				size: 800@600;
+				background: Color lightGray muchLighter;
 				padding: (BlInsets all: 2);
 				layout: BlLinearLayout horizontal;
 				yourself.
 			handler := DTMultiPaneReorderingHandler new.
-
 			columns := self columnsFor: items handler: handler.
 			handler
 				container: pane;
 				panes: (columns collect: #pane).
-			pane size: (300*columns size @ 800).
-			pane addChildren: columns]
-		 
+			pane addChildren: columns.
+			pane constraintsDo: [ :c | 
+					c horizontal matchParent.
+					c vertical matchParent ].
+	
+			scene := BlElement new
+				constraintsDo: [ :c | 
+					c horizontal matchParent.
+					c vertical matchParent ];
+				layout: BlLinearLayout vertical;
+				addChild: bar;
+				addChild: pane;
+				yourself ]
 ]
 
 { #category : #accessing }
@@ -101,6 +134,16 @@ CDLocalEnvironment >> openCardsInSpace [
 ]
 
 { #category : #accessing }
+CDLocalEnvironment >> releases [
+	^ self releasesPath asFileReference directories
+		collect: [ :each | 
+			CDGtRelease new
+				releasesPath: self releasesPath;
+				releaseName: each basename;
+				yourself ]
+]
+
+{ #category : #accessing }
 CDLocalEnvironment >> releasesPath [
 	^self rootPath / 'releases'
 ]
@@ -113,4 +156,20 @@ CDLocalEnvironment >> rootPath [
 { #category : #accessing }
 CDLocalEnvironment >> rootPath: aPath [
 	rootPath := aPath
+]
+
+{ #category : #accessing }
+CDLocalEnvironment >> runButton [
+	^ BrButton new
+		margin:
+			(BlInsets
+				top: 10
+				left: 0
+				bottom: 10
+				right: 10);
+		label: 'Check & Download Update';
+		look: BrRightButtonLook;
+		icon: BrGlamorousVectorIcons play;
+		action: [  ];
+		yourself
 ]
