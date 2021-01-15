@@ -10,19 +10,53 @@ Class {
 }
 
 { #category : #accessing }
+CDProjectColumn >> cardsPane [
+	pane := BlElement new
+		background: Color yellow muchLighter muchLighter lighter;
+		layout: BlFlowLayout new;
+		padding: (BlInsets all: 2);
+		constraintsDo: [ :c |
+			c horizontal matchParent.
+			c vertical matchParent];
+		yourself.
+	^pane
+]
+
+{ #category : #accessing }
 CDProjectColumn >> commit [
 ]
 
 { #category : #accessing }
 CDProjectColumn >> initialize [
-	|bar |
 	super initialize.
-	self layout: (BlLinearLayout vertical).
-	self border: (BlBorder paint: Color black lighter).
-	self constraintsDo: [ :c |
-		c horizontal matchParent.
-		c vertical matchParent].
+	self layout: (BlLinearLayout vertical);
+		border: (BlBorder paint: Color lightGray  width: 1);
+		constraintsDo: [ :c |
+			c horizontal matchParent.
+			c vertical matchParent].	
+	self addChild: self titleBar.
+	self addChild: self cardsPane
+]
 
+{ #category : #accessing }
+CDProjectColumn >> pane [
+	^pane
+]
+
+{ #category : #accessing }
+CDProjectColumn >> project [
+	^project ifNil: ['']
+]
+
+{ #category : #accessing }
+CDProjectColumn >> project: aString [
+	project := aString.
+	label text: project
+]
+
+{ #category : #accessing }
+CDProjectColumn >> titleBar [
+	|bar|
 	bar := BlElement new
 		size: 100 @ 40;
 		background: (Color lightGray muchLighter);
@@ -48,32 +82,5 @@ CDProjectColumn >> initialize [
 			];
  	   yourself).
 	bar addChild: label.
-	self border: (BlBorder paint: Color lightGray muchLighter width: 1).
-	pane := BlElement new
-		border: (BlBorder paint: Color lightGray lighter);
-		background: Color yellow muchLighter muchLighter lighter;
-		layout: BlFlowLayout new;
-		margin: (BlInsets all: 2);
-		padding: (BlInsets all: 2);
-		constraintsDo: [ :c |
-			c horizontal matchParent.
-			c vertical matchParent].
-	self addChild: bar.
-	self addChild: pane
-]
-
-{ #category : #accessing }
-CDProjectColumn >> pane [
-	^pane
-]
-
-{ #category : #accessing }
-CDProjectColumn >> project [
-	^project ifNil: ['']
-]
-
-{ #category : #accessing }
-CDProjectColumn >> project: aString [
-	project := aString.
-	label text: project
+	^bar
 ]
