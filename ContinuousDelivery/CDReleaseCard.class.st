@@ -12,9 +12,11 @@ CDReleaseCard >> initialize [
 	super initialize.
 	self size: 120@90;
 	background: (Color lightGray muchLighter);
+	border: (BlBorder paint: Color lightGray width: 1);
 	layout: (BlLinearLayout vertical);
 	margin: (BlInsets all: 6);
 	padding: (BlInsets top: 2 left: 2 bottom: 2 right: 2);
+	addLook: CDCardShadowLook new;
 
 	addChild: (BrEditableLabel new
 	    look:(CDEditableLabelLook new
