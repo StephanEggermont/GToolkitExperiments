@@ -91,6 +91,16 @@ CDLocalEnvironment >> hasRelease: aVersionString [
 ]
 
 { #category : #accessing }
+CDLocalEnvironment >> openCardsInSpace [
+| space |
+	space := BlSpace new.
+	(self gtCardsFor: GtPhlowEmptyView new)
+   	asElementDo: [ :anAppElement | space addChild: anAppElement ].
+	space title: 'Launcher'.
+	space show
+]
+
+{ #category : #accessing }
 CDLocalEnvironment >> releasesPath [
 	^self rootPath / 'releases'
 ]

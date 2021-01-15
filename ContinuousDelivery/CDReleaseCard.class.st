@@ -17,7 +17,10 @@ CDReleaseCard >> initialize [
 	margin: (BlInsets all: 6);
 	padding: (BlInsets top: 2 left: 2 bottom: 2 right: 2);
 	addLook: CDCardShadowLook new;
-
+	addLook: (BrGlamorousWithContextMenuLook
+                content: [ BrGlamorousSimpleContextMenuContent new
+                    items:self menuItems ;
+                    yourself ]);
 	addChild: (BrEditableLabel new
 	    look:(CDEditableLabelLook new
 			glamorousRegularFont;
@@ -46,6 +49,16 @@ CDReleaseCard >> initialize [
  	self addEventHandler: (BlEventHandler on: BlPullEndEvent do: [
  		release imageData project: self parent parent project.
  		release commit ]).
+]
+
+{ #category : #accessing }
+CDReleaseCard >> menuItems [
+^#(blue yellow red green) collect: [ :each | |color|
+    color := (Color perform: ('light', each capitalized) asSymbol).
+    ('Change to ',each capitalized) -> [ :e | 
+        e background: color.
+        e release imageData color: color.
+        e release commit]].
 ]
 
 { #category : #accessing }

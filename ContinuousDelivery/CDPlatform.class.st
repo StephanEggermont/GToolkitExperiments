@@ -9,10 +9,11 @@ Class {
 
 { #category : #accessing }
 CDPlatform class >> current [ 
-	^current ifNil: [
+	current ifNil: [
 		OSPlatform current family = 'MacOSX' ifTrue: [current := CDMac new].
 		OSPlatform current family = 'Unix' ifTrue: [current := CDLinux new].
-		OSPlatform current family = 'Windows' ifTrue: [current := CDWindows new]] 
+		OSPlatform current family = 'Windows' ifTrue: [current := CDWindows new]].
+	^current 
 ]
 
 { #category : #accessing }
