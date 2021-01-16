@@ -17,6 +17,22 @@ CDLocalEnvironment class >> on: aCDServer [
 ]
 
 { #category : #accessing }
+CDLocalEnvironment >> addProjectButton [
+	^ BrButton new
+		margin:
+			(BlInsets
+				top: 10
+				left: 40
+				bottom: 10
+				right: 0);
+		label: 'Add Project';
+		look: BrGlamorousButtonWithLabelAndIconLook+BrGlamorousButtonRectangularLook;
+		icon: BrGlamorousVectorIcons add;
+		action: [  ];
+		yourself
+]
+
+{ #category : #accessing }
 CDLocalEnvironment >> columnsFor: items handler: handler [ 
 	|columns|
 	columns := OrderedCollection new.
@@ -69,10 +85,11 @@ CDLocalEnvironment >> gtCardsFor: aView [
 	^ aView explicit
 		title: 'Cards' translated;
 		priority: 45;
-		stencil: [ | items pane bar scene gtButton runButton |
+		stencil: [ | items pane bar scene gtButton runButton addProjectButton|
 			items := self releases.
 			gtButton := self gtButton.
 			runButton := self runButton.
+			addProjectButton := self addProjectButton.
 			bar := BlElement new
 				size: 800 @ 40;
 				background: Color lightGray muchLighter;
@@ -82,6 +99,7 @@ CDLocalEnvironment >> gtCardsFor: aView [
 					c vertical exact: 40 ];
 				addChild: gtButton;
 				addChild: runButton;
+				addChild: addProjectButton;
 				yourself.
 			pane := BlElement new
 				size: 800@600;
