@@ -1,6 +1,9 @@
 Class {
 	#name : #DTPaneCreatingReorderingHandler,
 	#superclass : #DTMultiPaneReorderingHandler,
+	#instVars : [
+		'draggableOffset'
+	],
 	#category : #'DrawingTool-Drag & Drop'
 }
 
@@ -11,7 +14,7 @@ DTPaneCreatingReorderingHandler >> addPaneWith: draggable at: anEvent [
 	panes add: column.
 	column addChild: draggable.
 	container addChild: column.
-	column relocate: (column globalPointToParent: anEvent position). 
+	column relocate: (column globalPointToParent: anEvent position) - draggableOffset + (-4@ -12). 
 	column when: BlPullStartEvent do: [ self makeLast: column]. 
 
 ]
@@ -64,7 +67,7 @@ DTPaneCreatingReorderingHandler >> dragStartEvent: anEvent [
 
 	"drag start position in parent"
 	dragStartPosition := draggable globalPointToParent: anEvent position.
-
+	draggableOffset := dragStartPosition - draggable position.
 	"element position in parent"
 	originalPosition := draggable position.
 	placeholder := self placeholderFor: draggable.
