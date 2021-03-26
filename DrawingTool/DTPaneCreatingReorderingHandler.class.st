@@ -41,6 +41,25 @@ DTPaneCreatingReorderingHandler >> dragStartEvent: anEvent [
 ]
 
 { #category : #accessing }
+DTPaneCreatingReorderingHandler >> makeLast: aPane [
+	panes swap: (panes indexOf: aPane) with: panes size.
+	container removeChildren.
+	container addChildren: panes
+]
+
+{ #category : #accessing }
+DTPaneCreatingReorderingHandler >> movePlaceholderToCorrectParent: anEvent [
+	| currentPane |
+	currentPane := panes reversed
+		detect: [ :aPane |(aPane containsGlobalPoint: anEvent position)]
+	ifNone: [ parent ].
+	currentPane = parent
+		ifFalse: [ parent removeChild: placeholder.
+			parent := currentPane.
+			parent addChild: placeholder ]
+]
+
+{ #category : #accessing }
 DTPaneCreatingReorderingHandler >> threeFittingColumns [
 	<gtExample>
 	| pane columnBlock toDo doing done columns handler |
@@ -61,6 +80,8 @@ DTPaneCreatingReorderingHandler >> threeFittingColumns [
 		container: pane;
 		panes: columns;
 		yourself.
+	columns do: [:column |
+		column when: BlPullStartEvent do: [ handler makeLast: column]]. 
 	pane addChildren: columns.
 	10
 		timesRepeat: [ | element |
