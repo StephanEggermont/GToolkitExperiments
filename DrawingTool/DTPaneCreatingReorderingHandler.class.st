@@ -12,6 +12,8 @@ DTPaneCreatingReorderingHandler >> addPaneWith: draggable at: anEvent [
 	column addChild: draggable.
 	container addChild: column.
 	column relocate: (column globalPointToParent: anEvent position). 
+	column when: BlPullStartEvent do: [ self makeLast: column]. 
+
 ]
 
 { #category : #accessing }
@@ -40,7 +42,8 @@ DTPaneCreatingReorderingHandler >> dragEndEvent: anEvent [
 		self addPaneWith: draggable at: anEvent.
 	].
 	overlay detach.
-
+	panes do: [:each | each childrenCount = 0 ifTrue: [ container removeChild: each]].
+	(panes removeAllSuchThat: [:each | each childrenCount = 0]).
 	anEvent currentTarget dispatchEvent: BlPullEndEvent new
 ]
 
@@ -67,26 +70,7 @@ DTPaneCreatingReorderingHandler >> dragStartEvent: anEvent [
 ]
 
 { #category : #accessing }
-DTPaneCreatingReorderingHandler >> makeLast: aPane [
-	panes swap: (panes indexOf: aPane) with: panes size.
-	container removeChildren.
-	container addChildren: panes
-]
-
-{ #category : #accessing }
-DTPaneCreatingReorderingHandler >> movePlaceholderToCorrectParent: anEvent [
-	| currentPane |
-	currentPane := panes reversed
-		detect: [ :aPane |(aPane containsGlobalPoint: anEvent position)]
-	ifNone: [ parent ].
-	currentPane = parent
-		ifFalse: [ parent removeChild: placeholder.
-			parent := currentPane.
-			parent addChild: placeholder ]
-]
-
-{ #category : #accessing }
-DTPaneCreatingReorderingHandler >> threeFittingColumns [
+DTPaneCreatingReorderingHandler >> fittingColumns [
 	<gtExample>
 	| pane columnBlock toDo doing done columns handler |
 	pane := BlElement new
@@ -97,11 +81,7 @@ DTPaneCreatingReorderingHandler >> threeFittingColumns [
 		yourself.
 	columnBlock := self columnBlock.
 	toDo := columnBlock value.
-	doing := columnBlock value.
-	done := columnBlock value.
-	columns := {toDo.
-	doing.
-	done} asOrderedCollection.
+	columns := {toDo} asOrderedCollection.
 	handler := self class new
 		container: pane;
 		panes: columns;
@@ -120,4 +100,23 @@ DTPaneCreatingReorderingHandler >> threeFittingColumns [
 				yourself.
 			toDo addChild: element ].
 	^ pane
+]
+
+{ #category : #accessing }
+DTPaneCreatingReorderingHandler >> makeLast: aPane [
+	panes swap: (panes indexOf: aPane) with: panes size.
+	container removeChildren.
+	container addChildren: panes
+]
+
+{ #category : #accessing }
+DTPaneCreatingReorderingHandler >> movePlaceholderToCorrectParent: anEvent [
+	| currentPane |
+	currentPane := panes reversed
+		detect: [ :aPane |(aPane containsGlobalPoint: anEvent position)]
+	ifNone: [ parent ].
+	currentPane = parent
+		ifFalse: [ parent removeChild: placeholder.
+			parent := currentPane.
+			parent addChild: placeholder ]
 ]
