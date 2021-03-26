@@ -121,7 +121,13 @@ DTPaneCreatingReorderingHandler >> movePlaceholderToCorrectParent: anEvent [
 		detect: [ :aPane |(aPane containsGlobalPoint: anEvent position)]
 	ifNone: [ parent ].
 	currentPane = parent
-		ifFalse: [ parent removeChild: placeholder.
+		ifFalse: [ 
+			parent removeChild: placeholder.
+			parent constraintsDo: [ :c | 
+				c horizontal exact: 86*(parent childrenCount sqrt roundUpTo: 1)].
 			parent := currentPane.
-			parent addChild: placeholder ]
+			parent addChild: placeholder.
+			parent constraintsDo: [ :c | 
+				c horizontal exact: 86*(parent childrenCount sqrt roundUpTo: 1)].
+ ]
 ]
