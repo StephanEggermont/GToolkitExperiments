@@ -5,6 +5,16 @@ Class {
 }
 
 { #category : #accessing }
+DTPaneCreatingReorderingHandler >> addPaneWith: draggable at: anEvent [ 
+	|column|
+	column := self columnBlock value.
+	panes add: column.
+	column addChild: draggable.
+	container addChild: column.
+	column relocate: (column globalPointToParent: anEvent position). 
+]
+
+{ #category : #accessing }
 DTPaneCreatingReorderingHandler >> columnBlock [
 	^ [ BlElement new
 		border: (BlBorder paint: Color lightGray lighter);
@@ -13,9 +23,25 @@ DTPaneCreatingReorderingHandler >> columnBlock [
 		margin: (BlInsets all: 2);
 		padding: (BlInsets top: 10 left: 2 bottom: 2 right: 2);
 		constraintsDo: [ :c | 
-			c horizontal matchParent.
+			c horizontal exact: 86*3.
 			c vertical fitContent ];
 		addEventHandler: BlPullHandler new ]
+]
+
+{ #category : #accessing }
+DTPaneCreatingReorderingHandler >> dragEndEvent: anEvent [
+	"anEvent consumed: true."
+	| draggable |
+	draggable := anEvent currentTarget.
+	overlay removeChild: draggable.
+	(parent containsGlobalPoint: anEvent position) ifTrue: [
+		parent replaceChild: placeholder with: draggable] ifFalse: [
+		parent removeChild: placeholder.
+		self addPaneWith: draggable at: anEvent.
+	].
+	overlay detach.
+
+	anEvent currentTarget dispatchEvent: BlPullEndEvent new
 ]
 
 { #category : #accessing }
@@ -75,7 +101,7 @@ DTPaneCreatingReorderingHandler >> threeFittingColumns [
 	done := columnBlock value.
 	columns := {toDo.
 	doing.
-	done}.
+	done} asOrderedCollection.
 	handler := self class new
 		container: pane;
 		panes: columns;
