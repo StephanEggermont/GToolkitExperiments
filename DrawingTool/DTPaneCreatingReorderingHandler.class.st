@@ -42,7 +42,12 @@ DTPaneCreatingReorderingHandler >> dragEndEvent: anEvent [
 		self addPaneWith: draggable at: anEvent.
 	].
 	overlay detach.
-	panes do: [:each | each childrenCount = 0 ifTrue: [ container removeChild: each]].
+	panes do: [:each | |nrOfChildren|
+		nrOfChildren := each childrenCount.
+		nrOfChildren = 0 ifTrue: [ container removeChild: each]
+		ifFalse: [ each constraintsDo: [ :c | 
+			c horizontal exact: 86*(nrOfChildren sqrt roundUpTo: 1)]].
+].
 	(panes removeAllSuchThat: [:each | each childrenCount = 0]).
 	anEvent currentTarget dispatchEvent: BlPullEndEvent new
 ]
