@@ -1,3 +1,14 @@
+"
+!A drag and drop handler for grouping and ordering elements
+As a subclass of ${class:BlCustomEventHandler}$ I need to specify which events I want to handle. As a drag-and-drop handler, they are defineed in ${method:DTReorderingHandler>>#eventsToHandle}$. The container is the parent element of the groups and elements. It limits where they can be dragged. Panes are the groups that can be moved around using a BlPullHandler. I am attached to each individual element, not to the groups. I am shared between those individual elements. 
+!! Handling the start of drag
+The element that is going to be dragged is the currentTarget of the event. Let's call it the dragable. To correctly position it later, record the offset from its position in draggableOffset. The draggable can be in a group, and so also record its position relative to its parent (the group) in dragStartPosition. 
+!!!!Overlay
+The group often has a layout interfering withthe smooth dragging of the draggable, so create an overlay for the container and add it to the container. Create a placeholder for the draggable, and swap the draggable for it in the pane. Put the draggable in the overlay.  
+!!Dragging
+When moving the mouse, the placeholder should provide a preview of what happens when the dragging stops. As long as the mouse position is still over the current group and that is the topmost group, the placeholder will be swapped with the element currently under the cursor. If the mouse moves over a different group, the placeholder needs to be swapped with the corresponding child of the new group. Both the old and the new group get to be re-layout to be as square as possible. The event has a global position, but the draggable is now in an overlay of the container that has local coordinates.
+
+"
 Class {
 	#name : #DTPaneCreatingReorderingHandler,
 	#superclass : #DTMultiPaneReorderingHandler,
