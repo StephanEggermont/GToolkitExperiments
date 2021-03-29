@@ -6,8 +6,9 @@ The element that is going to be dragged is the currentTarget of the event. Let's
 !!!!Overlay
 The group often has a layout interfering withthe smooth dragging of the draggable, so create an overlay for the container and add it to the container. Create a placeholder for the draggable, and swap the draggable for it in the pane. Put the draggable in the overlay.  
 !!Dragging
-When moving the mouse, the placeholder should provide a preview of what happens when the dragging stops. As long as the mouse position is still over the current group and that is the topmost group, the placeholder will be swapped with the element currently under the cursor. If the mouse moves over a different group, the placeholder needs to be swapped with the corresponding child of the new group. Both the old and the new group get to be re-layout to be as square as possible. The event has a global position, but the draggable is now in an overlay of the container that has local coordinates.
-
+When moving the mouse, the placeholder should provide a preview of what happens when the dragging stops. As long as the mouse position is still over the current group and that is the topmost group, the placeholder will be swapped with the element currently under the cursor. If the mouse moves over a different group, the placeholder needs to be swapped with the corresponding child of the new group. At the moment, the placeholder remains on the last group it was on when the mouse position is over the container, but not over a group. Both the old and the new group get to be re-layout to be as square as possible. The event has a global position, but the draggable is now in an overlay of the container that has local coordinates. 
+!!Dropping
+When dropping, the draggable is first  removed from the overlay, so the overlay can be disposed of. If the mouse position is still over the group, the placeholder is swapped with the draggable. Otherwise, a new group is created ad added to the container containing the draggable. The groups are re-layouted, and empty groups are removed.
 "
 Class {
 	#name : #DTPaneCreatingReorderingHandler,
@@ -51,10 +52,10 @@ DTPaneCreatingReorderingHandler >> dragEndEvent: anEvent [
 	draggable := anEvent currentTarget.
 	overlay removeChild: draggable.
 	(parent containsGlobalPoint: anEvent position) ifTrue: [
-		parent replaceChild: placeholder with: draggable] ifFalse: [
+		parent replaceChild: placeholder with: draggable] 
+	ifFalse: [ 
 		parent removeChild: placeholder.
-		self addPaneWith: draggable at: anEvent.
-	].
+		self addPaneWith: draggable at: anEvent].
 	overlay detach.
 	panes do: [:each | |nrOfChildren|
 		nrOfChildren := each childrenCount.
