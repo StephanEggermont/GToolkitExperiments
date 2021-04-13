@@ -1,23 +1,23 @@
 Class {
-	#name : #BrLeftButtonLook,
-	#superclass : #BrGlamorousButtonRectangularLook,
-	#category : #'DrawingTool-Looks'
+	#name : #BrLeftButtonAptitude,
+	#superclass : #BrGlamorousButtonRectangularAptitude,
+	#category : #'DrawingTool-Aptitudes'
 }
 
 { #category : #accessing }
-BrLeftButtonLook >> initialize [
+BrLeftButtonAptitude >> initialize [
 	super initialize.
 	self addAll: {
-		BrGlamorousButtonExteriorLook new.
-		BrGlamorousButtonIconLook new.
-		BrGlamorousButtonWithLabelTooltipLook new
+		BrGlamorousButtonExteriorAptitude new.
+		BrGlamorousButtonIconAptitude new.
+		BrGlamorousButtonWithLabelTooltipAptitude new
 	}.
 	self default geometry: ( BlRoundedRectangleGeometry cornerRadii: (BlCornerRadii new
 							topLeft: 4;
 							topRight: 0;
 							bottomLeft: 4;
 							bottomRight: 0)).
-	self add: (BrSizeAdjustmentLook new
+	self add: (BrSizeAdjustmentAptitude new
 		mini: [ :aStyle |
 			aStyle
 				vExact: 12;
@@ -43,6 +43,6 @@ BrLeftButtonLook >> initialize [
 				vExact: 48;
 				padding: (BlInsets left: 16 right: 16) ]).
 
-	self add: BrGlamorousButtonLayoutLook new
+	self add: BrGlamorousButtonLayoutAptitude new
  
 ]

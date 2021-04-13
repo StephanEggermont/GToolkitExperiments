@@ -1,36 +1,36 @@
 Class {
-	#name : #CDEditableLabelLook,
-	#superclass : #BrGlamorousEditorLook,
+	#name : #CDEditableLabelAptitude,
+	#superclass : #BrGlamorousEditorAptitude,
 	#instVars : [
 		'defaultBackground',
 		'defaultForeground',
 		'minWidth'
 	],
-	#category : #ContinuousDelivery
+	#category : #'ContinuousDelivery-ContinuousDelivery'
 }
 
 { #category : #accessing }
-CDEditableLabelLook >> defaultBackground [
-	^ defaultBackground
+CDEditableLabelAptitude >> defaultBackground [
+	^defaultBackground
 ]
 
 { #category : #accessing }
-CDEditableLabelLook >> defaultBackground: anObject [
-	defaultBackground := anObject
+CDEditableLabelAptitude >> defaultBackground: aBackground [
+	defaultBackground := aBackground
 ]
 
 { #category : #accessing }
-CDEditableLabelLook >> defaultForeground [
-	^ defaultForeground
+CDEditableLabelAptitude >> defaultForeground [
+	^defaultForeground
 ]
 
 { #category : #accessing }
-CDEditableLabelLook >> defaultForeground: anObject [
-	defaultForeground := anObject
+CDEditableLabelAptitude >> defaultForeground: aForeground [
+	defaultForeground := aForeground
 ]
 
-{ #category : #initialization }
-CDEditableLabelLook >> initialize [
+{ #category : #accessing }
+CDEditableLabelAptitude >> initialize [ 
 	super initialize.
 	
 	defaultBackground := Color transparent.
@@ -42,7 +42,7 @@ CDEditableLabelLook >> initialize [
 		with: [ self minWidth ].
 
 	self
-		add: (BrStyleCommonLook new
+		add: (BrStyleCommonAptitude new
 			default: [ :aStyle |
 				aStyle geometry: (BlRoundedRectangleGeometry cornerRadius: 2).
 				aStyle background: self defaultBackground.
@@ -59,21 +59,22 @@ CDEditableLabelLook >> initialize [
 				style: [ :aStyle |
 					aStyle background: BrGlamorousColors focusedEditorBorderColor.
 					aStyle do: [ self foreground: Color white ] after: [ self foreground: self defaultForeground ] ])
+
 ]
 
-{ #category : #initialization }
-CDEditableLabelLook >> initializeListeners [
+{ #category : #accessing }
+CDEditableLabelAptitude >> initializeListeners [
 	super initializeListeners.
-	
+
 	self when: BlClickEvent do: [ :anEvent | anEvent currentTarget dispatchEvent: (BlElementSelectedStateWish selected: true) ]
 ]
 
 { #category : #accessing }
-CDEditableLabelLook >> minWidth [
-	^ minWidth
+CDEditableLabelAptitude >> minWidth [
+	^minWidth
 ]
 
 { #category : #accessing }
-CDEditableLabelLook >> minWidth: anObject [
-	minWidth := anObject
+CDEditableLabelAptitude >> minWidth: aNumber [
+	minWidth := aNumber
 ]

@@ -16,13 +16,13 @@ CDReleaseCard >> initialize [
 	layout: (BlLinearLayout vertical);
 	margin: (BlInsets all: 6);
 	padding: (BlInsets top: 2 left: 2 bottom: 2 right: 2);
-	addLook: CDCardShadowLook new;
-	addLook: (BrGlamorousWithContextMenuLook
+	addLook: CDCardShadowAptitude new;
+	addLook: (BrGlamorousWithContextMenuAptitude
                 content: [ BrGlamorousSimpleContextMenuContent new
                     items:self menuItems ;
                     yourself ]);
 	addChild: (BrEditableLabel new
-	    look:(CDEditableLabelLook new
+	    look:(CDEditableLabelAptitude new
 			glamorousRegularFont;
 			fontSize: 14);
 		padding: (BlInsets all: 2);
@@ -35,15 +35,15 @@ CDReleaseCard >> initialize [
 			];
  	   yourself);
  	addChild: (BrLabel new
- 		look: BrGlamorousLabelLook;
+ 		look: BrGlamorousLabelAptitude;
 		padding: (BlInsets left: 2);
  		text: '');
   	addChild: (BrLabel new
- 		look: BrGlamorousLabelLook;
+ 		look: BrGlamorousLabelAptitude;
 		padding: (BlInsets left: 2);
  		text: '');
   	addChild: (BrLabel new
- 		look: BrGlamorousLabelLook;
+ 		look: BrGlamorousLabelAptitude;
 		padding: (BlInsets left: 2);
  		text: '').
  	self addEventHandler: (BlEventHandler on: BlPullEndEvent do: [

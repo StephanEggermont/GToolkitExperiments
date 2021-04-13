@@ -72,7 +72,7 @@ CDLocalEnvironment >> gtButton [
 				bottom: 10
 				right: 0);
 		label: 'Open Development Environment';
-		look: BrLeftButtonLook;
+		look: BrLeftButtonAptitude;
 		icon: BrGlamorousVectorIcons gt;
 		action: [ GtWorld openDefault ];
 		yourself
@@ -197,7 +197,7 @@ CDLocalEnvironment >> runButton [
 				bottom: 10
 				right: 10);
 		label: 'Check & Download Update';
-		look: BrRightButtonLook;
+		look: BrRightButtonAptitude;
 		icon: BrGlamorousVectorIcons play;
 		action: [ CDServer new run.
 			cardView requestLayout ];

@@ -1,11 +1,11 @@
 Class {
-	#name : #CDCardShadowLook,
-	#superclass : #BrShadowLook,
+	#name : #CDCardShadowAptitude,
+	#superclass : #BrShadowAptitude,
 	#category : #'ContinuousDelivery-ContinuousDelivery'
 }
 
 { #category : #accessing }
-CDCardShadowLook >> initialize [
+CDCardShadowAptitude >> initialize [
 	super initialize.
 	self addChangeProperty: #(widget effect) withCopy: [ self shadow ].
 	shadow := BlGaussianShadowEffect

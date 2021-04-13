@@ -19,7 +19,7 @@ DTMultiPaneReorderingHandler >> cards [
 plusSize := BrButton new 
 				margin: (BlInsets top: 10 left: 0 bottom: 10 right: 10);
 				
-				look: BrRightButtonLook;
+				look: BrRightButtonAptitude;
 				icon: BrGlamorousVectorIcons add;
 				action: [ |subject|
 					subject := ((pane childAt: 1) childAt: 1).
@@ -28,7 +28,7 @@ plusSize := BrButton new
 minSize := BrButton new 
 				margin: (BlInsets top: 10 left: 10 bottom: 10 right: 0);
 				
-				look: BrLeftButtonLook;
+				look: BrLeftButtonAptitude;
 				icon: BrGlamorousVectorIcons remove;
 				action: [ |subject|
 					subject := ((pane childAt: 1) childAt: 1).
