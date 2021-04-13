@@ -56,31 +56,33 @@ CDProjectColumn >> project: aString [
 
 { #category : #accessing }
 CDProjectColumn >> titleBar [
-	|bar|
+	| bar |
 	bar := BlElement new
 		size: 100 @ 40;
-		background: (Color lightGray muchLighter);
-		layout: (BlLinearLayout horizontal);
-		constraintsDo: [ :c |
+		background: Color lightGray muchLighter;
+		layout: BlLinearLayout horizontal;
+		constraintsDo: [ :c | 
 			c horizontal matchParent.
 			c vertical exact: 40 ];
 		yourself.
-	label :=(BrEditableLabel new
+	label := BrEditableLabel new
 		margin: (BlInsets all: 5);
-	    look:(CDEditableLabelLook new
-			defaultBackground: Color transparent;
- 			glamorousCodeFont;
-           fontSize: 10);
-   	 text: 'Prototype';
+		aptitude:
+			(CDEditableLabelAptitude new
+				defaultBackground: Color transparent;
+				glamorousCodeFont;
+				fontSize: 10);
+		text: 'Prototype';
 		when: BrEditorAcceptWish
-		do: [ :aWish | 	| valueString |
+			do: [ :aWish | 
+			| valueString |
 			valueString := aWish text asString trim.
 			project := valueString.
-			pane childrenDo: [ :card | 
-				card release imageData project: project.
-				card release commit].
-			];
- 	   yourself).
+			pane
+				childrenDo: [ :card | 
+					card release imageData project: project.
+					card release commit ] ];
+		yourself.
 	bar addChild: label.
-	^bar
+	^ bar
 ]

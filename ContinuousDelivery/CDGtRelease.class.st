@@ -28,12 +28,15 @@ CDGtRelease >> commit [
 
 { #category : #accessing }
 CDGtRelease >> gtButtonRun [
-	|runButton|
+	| runButton |
 	runButton := BrButton new.
-	runButton look: (BrGlamorousButtonRectangularAptitude + BrGlamorousButtonExteriorAptitude + 
-		(BrGlamorousButtonIconAptitude  new)).
+	runButton
+		aptitude:
+			BrGlamorousButtonRectangularAptitude
+				+ BrGlamorousButtonExteriorAptitude
+				+ BrGlamorousButtonIconAptitude new.
 	runButton icon: BrGlamorousVectorIcons play.
-	runButton action: [ self run].
+	runButton action: [ self run ].
 	^ runButton
 ]
 
