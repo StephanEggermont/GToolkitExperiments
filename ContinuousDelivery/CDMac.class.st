@@ -11,5 +11,6 @@ CDMac >> platformName [
 
 { #category : #accessing }
 CDMac >> runCommand [
-	^'open GlamorousToolkit.app'
+	^'./GlamorousToolkit.app/Contents/MacOS/GlamorousToolkit GlamorousToolkit.image --no-quit --interactive &'
+"	^'open GlamorousToolkit.app'"
 ]
