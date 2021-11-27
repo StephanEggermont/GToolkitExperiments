@@ -5,6 +5,11 @@ Class {
 }
 
 { #category : #accessing }
+CDLinux >> newRunCommand [
+	^'"./bin/GlamorousToolkit" &'
+]
+
+{ #category : #accessing }
 CDLinux >> platformName [
 	^'Linux'
 ]
