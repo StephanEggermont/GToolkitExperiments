@@ -12,9 +12,14 @@ Class {
 { #category : #accessing }
 CDGtRelease >> command [
 	| command |
-	command := 'cd "' , self runPath
+	self isNew ifFalse: [
+		command := 'cd "' , self runPath
 		, '" && '
-		, CDPlatform current runCommand.
+		, CDPlatform current runCommand] 
+		ifTrue: [
+		command := 'cd "' , self runPath
+		, '" && '
+		, CDPlatform current newRunCommand		].
 	^command
 ]
 
@@ -52,6 +57,11 @@ CDGtRelease >> imageSize [
 	image := self runPath asFileReference / 'GlamorousToolkit.image'.
 	image exists ifFalse: [^'N/A'].
 	^ image size asString
+]
+
+{ #category : #accessing }
+CDGtRelease >> isNew [
+	^releaseName numericSuffix > 900
 ]
 
 { #category : #accessing }
@@ -99,6 +109,10 @@ CDGtRelease >> run [
 
 { #category : #accessing }
 CDGtRelease >> runPath [
-	^(releasesPath / releaseName / ('GlamorousToolkit', 
-	CDPlatform current platformName, '64-', releaseName)) fullName
+	 self isNew ifFalse: [
+		^(releasesPath / releaseName / ('GlamorousToolkit', 
+	CDPlatform current platformName, '64-', releaseName)) fullName]
+	ifTrue: [
+		^(releasesPath / releaseName) fullName
+	]
 ]

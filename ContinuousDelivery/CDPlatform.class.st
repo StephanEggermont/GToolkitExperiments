@@ -17,6 +17,11 @@ CDPlatform class >> current [
 ]
 
 { #category : #accessing }
+CDPlatform >> newRunCommand [
+	^self runCommand
+]
+
+{ #category : #accessing }
 CDPlatform >> platformName [
 	self subclassResponsibility
 ]
