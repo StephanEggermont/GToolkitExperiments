@@ -31,6 +31,16 @@ DTCardSorting class >> open [
 ]
 
 { #category : #accessing }
+DTCardSorting >> addNewCard [
+	| group el|
+	group := (self columnBlock:1)value.
+	el := self newCard: self newText.				
+	group addChild: el.
+	pane addChild: group.
+	handler addPane: group.
+]
+
+{ #category : #accessing }
 DTCardSorting >> columnBlock [
 	^ [ BlElement new
 		border: (BlBorder paint: Color lightGray lighter);
@@ -40,6 +50,20 @@ DTCardSorting >> columnBlock [
 		padding: (BlInsets top: 10 left: 2 bottom: 2 right: 2);
 		constraintsDo: [ :c | 
 			c horizontal exact: 86*3.
+			c vertical fitContent ];
+		addEventHandler: BlPullHandler new ]
+]
+
+{ #category : #accessing }
+DTCardSorting >> columnBlock: nrOfColumns [
+	^ [ BlElement new
+		border: (BlBorder paint: Color lightGray lighter);
+		background: Color yellow muchLighter muchLighter lighter;
+		layout: BlFlowLayout new;
+		margin: (BlInsets all: 2);
+		padding: (BlInsets top: 10 left: 2 bottom: 2 right: 2);
+		constraintsDo: [ :c | 
+			c horizontal exact: 86*nrOfColumns.
 			c vertical fitContent ];
 		addEventHandler: BlPullHandler new ]
 ]
@@ -75,10 +99,12 @@ DTCardSorting >> contentsArea [
 DTCardSorting >> newCard: aString [
 	^BlTextElement new
 		text: aString asRopedText;
-		size: 80 @ 60;
+		size: 74 @ 54;
 		border: (BlBorder paint: Color black);
 		background: Color random;
 		margin: (BlInsets all: 2);
+		padding: (BlInsets all: 3);
+		
 		addEventHandler: handler;
 		yourself.
 ]
@@ -94,20 +120,17 @@ DTCardSorting >> newCardButton [
 				right: 10);
 		aptitude: BrRectangularButtonAptitude;
 		icon: BrGlamorousVectorIcons add;
-		action: [ | subject group el|
-			group := self columnBlock value.
-			el := self newCard: self newText.				
-			group addChild: el.
-			pane addChild: group.
-			handler addPane: group.
-			 ];
+		action: [ 
+			self addNewCard.
+			textElement text: ''.
+			textElement requestFocus];
 		yourself.
 ]
 
 { #category : #accessing }
 DTCardSorting >> newCardEditor [
-	^(BrEditableLabel new
-		aptitude:
+	^(BrEditor new
+		aptitude: 
 			(DTEditableLabelAptitude new
 				glamorousRegularFont;
 				fontSize: 14);
@@ -121,9 +144,9 @@ DTCardSorting >> newCardEditor [
 		text: 'Prototype';
 		when: BrEditorAcceptWish
 			do: [ :aWish | 
-			| valueString |
-			valueString := aWish text asString trim.
-			 ];
+				self addNewCard.
+				textElement text: ''.
+				textElement requestFocus];
 		yourself)
 ]
 
