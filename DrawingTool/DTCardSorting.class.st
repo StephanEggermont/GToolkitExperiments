@@ -8,7 +8,10 @@ Class {
 		'aSpace',
 		'addNewCard',
 		'newCardButton',
-		'newCardEditor'
+		'newCardEditor',
+		'handler',
+		'cardGroups',
+		'textElement'
 	],
 	#classInstVars : [
 		'newCardButton'
@@ -44,7 +47,7 @@ DTCardSorting >> columnBlock [
 { #category : #accessing }
 DTCardSorting >> contentsArea [
 
-	| contentsPane columnBlock toDo doing done columns handler |
+	| contentsPane columnBlock cardGroup doing done |
 	contentsPane := BlElement new
 		size: 800 @ 600;
 		background: Color lightGray muchLighter;
@@ -52,26 +55,32 @@ DTCardSorting >> contentsArea [
 		layout: BlBasicLayout new;
 		yourself.
 	columnBlock := self columnBlock.
-	toDo := columnBlock value.
-	columns := {toDo} asOrderedCollection.
+	cardGroup := columnBlock value.
+	cardGroups := {cardGroup} asOrderedCollection.
 	handler := DTPaneCreatingReorderingHandler new
 		container: contentsPane;
-		panes: columns;
+		panes: cardGroups;
 		yourself.
-	columns do: [:column |
-		column when: BlPullStartEvent do: [ handler makeLast: column]]. 
-	contentsPane addChildren: columns.
+	cardGroups do: [:group |
+		group when: BlPullStartEvent do: [ handler makeLast: group]]. 
+	contentsPane addChildren: cardGroups.
 	10
 		timesRepeat: [ | element |
-			element := BlElement new
-				size: 80 @ 60;
-				border: (BlBorder paint: Color black);
-				background: Color random;
-				margin: (BlInsets all: 2);
-				addEventHandler: handler;
-				yourself.
-			toDo addChild: element ].
+			element := self newCard: ''.
+			cardGroup addChild: element ].
 	^ contentsPane
+]
+
+{ #category : #accessing }
+DTCardSorting >> newCard: aString [
+	^BlTextElement new
+		text: aString asRopedText;
+		size: 80 @ 60;
+		border: (BlBorder paint: Color black);
+		background: Color random;
+		margin: (BlInsets all: 2);
+		addEventHandler: handler;
+		yourself.
 ]
 
 { #category : #accessing }
@@ -85,18 +94,12 @@ DTCardSorting >> newCardButton [
 				right: 10);
 		aptitude: BrRectangularButtonAptitude;
 		icon: BrGlamorousVectorIcons add;
-		action: [ | subject toDo el|
-			toDo := self columnBlock value.
-
-			el := BlTextElement new
-				text: newCardEditor text;
-				size: 80 @ 60;
-				border: (BlBorder paint: Color black);
-				background: Color random;
-				margin: (BlInsets all: 2);
-				yourself.
-			toDo addChild: el.
-			pane addChild: toDo
+		action: [ | subject group el|
+			group := self columnBlock value.
+			el := self newCard: self newText.				
+			group addChild: el.
+			pane addChild: group.
+			handler addPane: group.
 			 ];
 		yourself.
 ]
@@ -125,7 +128,13 @@ DTCardSorting >> newCardEditor [
 ]
 
 { #category : #accessing }
+DTCardSorting >> newText [
+	^textElement text
+]
+
+{ #category : #accessing }
 DTCardSorting >> open [
+	textElement := self newCardEditor.
 	bar := BlElement new
 		size: 800 @ 40;
 		background: Color lightGray lighter;
@@ -133,7 +142,7 @@ DTCardSorting >> open [
 		constraintsDo: [ :c | 
 			c horizontal matchParent.
 			c vertical exact: 40 ];
-		addChild: self newCardEditor;
+		addChild: textElement;
 		addChild: self newCardButton;
 		yourself.
 	pane := self contentsArea

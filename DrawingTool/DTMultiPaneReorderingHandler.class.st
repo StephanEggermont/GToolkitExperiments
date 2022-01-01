@@ -13,6 +13,11 @@ Class {
 }
 
 { #category : #accessing }
+DTMultiPaneReorderingHandler >> addPane: aPane [
+	panes add: aPane
+]
+
+{ #category : #accessing }
 DTMultiPaneReorderingHandler >> cards [
 	<gtExample>
 	| plusSize minSize bar pane scene aSpace |
