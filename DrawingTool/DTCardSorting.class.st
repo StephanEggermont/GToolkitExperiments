@@ -142,6 +142,13 @@ DTCardSorting >> newCardEditor [
 				right: 10);
 		padding: (BlInsets all: 2);
 		text: 'Prototype';
+		addShortcut:
+			(BlShortcutWithAction new
+				combination: BlKeyCombination return;
+				action: [ :anEvent | 
+					self addNewCard.
+				textElement text: ''.
+				textElement requestFocus]);
 		when: BrEditorAcceptWish
 			do: [ :aWish | 
 				self addNewCard.
