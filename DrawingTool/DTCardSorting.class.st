@@ -80,18 +80,13 @@ DTCardSorting >> contentsArea [
 		yourself.
 	columnBlock := self columnBlock.
 	cardGroup := columnBlock value.
-	cardGroups := {cardGroup} asOrderedCollection.
+	cardGroups := OrderedCollection new.
 	handler := DTPaneCreatingReorderingHandler new
 		container: contentsPane;
 		panes: cardGroups;
 		yourself.
 	cardGroups do: [:group |
 		group when: BlPullStartEvent do: [ handler makeLast: group]]. 
-	contentsPane addChildren: cardGroups.
-	10
-		timesRepeat: [ | element |
-			element := self newCard: ''.
-			cardGroup addChild: element ].
 	^ contentsPane
 ]
 
@@ -101,7 +96,7 @@ DTCardSorting >> newCard: aString [
 		text: aString asRopedText;
 		size: 74 @ 54;
 		border: (BlBorder paint: Color black);
-		background: Color random;
+		background: Color yellow muchLighter;
 		margin: (BlInsets all: 2);
 		padding: (BlInsets all: 3);
 		
