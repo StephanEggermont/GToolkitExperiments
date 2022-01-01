@@ -11,18 +11,17 @@ Class {
 		'newCardEditor',
 		'handler',
 		'cardGroups',
-		'textElement'
+		'textElement',
+		'smallButton',
+		'largeButton',
+		'cardSize',
+		'groupWidth'
 	],
 	#classInstVars : [
 		'newCardButton'
 	],
 	#category : #'DrawingTool-Drag & Drop'
 }
-
-{ #category : #accessing }
-DTCardSorting class >> newMethod [
-	"This is a new method"
-]
 
 { #category : #accessing }
 DTCardSorting class >> open [
@@ -49,7 +48,7 @@ DTCardSorting >> columnBlock [
 		margin: (BlInsets all: 2);
 		padding: (BlInsets top: 10 left: 2 bottom: 2 right: 2);
 		constraintsDo: [ :c | 
-			c horizontal exact: 86*3.
+			c horizontal exact: groupWidth*3.
 			c vertical fitContent ];
 		addEventHandler: BlPullHandler new ]
 ]
@@ -63,7 +62,7 @@ DTCardSorting >> columnBlock: nrOfColumns [
 		margin: (BlInsets all: 2);
 		padding: (BlInsets top: 10 left: 2 bottom: 2 right: 2);
 		constraintsDo: [ :c | 
-			c horizontal exact: 86*nrOfColumns.
+			c horizontal exact: groupWidth*nrOfColumns.
 			c vertical fitContent ];
 		addEventHandler: BlPullHandler new ]
 ]
@@ -91,15 +90,37 @@ DTCardSorting >> contentsArea [
 ]
 
 { #category : #accessing }
+DTCardSorting >> initialize [
+	cardSize := 80@60.
+	groupWidth := 86
+]
+
+{ #category : #accessing }
+DTCardSorting >> large [
+	cardSize := 120@80.
+	groupWidth := 126
+]
+
+{ #category : #accessing }
+DTCardSorting >> largeButton [
+	^largeButton := BrButton new
+		margin:
+			(BlInsets
+				top: 10
+				left: 0
+				bottom: 10
+				right: 10);
+		aptitude: BrRightLabelButtonAptitude;
+		label: 'L'; 
+		action: [ 
+			self large];
+		yourself.
+]
+
+{ #category : #accessing }
 DTCardSorting >> newCard: aString [
-	^BlTextElement new
+	^DTCard new
 		text: aString asRopedText;
-		size: 74 @ 54;
-		border: (BlBorder paint: Color black);
-		background: Color yellow muchLighter;
-		margin: (BlInsets all: 2);
-		padding: (BlInsets all: 3);
-		
 		addEventHandler: handler;
 		yourself.
 ]
@@ -169,6 +190,8 @@ DTCardSorting >> open [
 			c vertical exact: 40 ];
 		addChild: textElement;
 		addChild: self newCardButton;
+		addChild: self smallButton;
+		addChild: self largeButton;
 		yourself.
 	pane := self contentsArea
 		constraintsDo: [ :c | 
@@ -188,4 +211,31 @@ DTCardSorting >> open [
 		extent: 800 @ 600;
 		title: 'Cards'.
 	^ aSpace show
+]
+
+{ #category : #accessing }
+DTCardSorting >> resizeContents [
+]
+
+{ #category : #accessing }
+DTCardSorting >> small [
+	cardSize := 80@60.
+	groupWidth := 86.
+	self resizeContents
+]
+
+{ #category : #accessing }
+DTCardSorting >> smallButton [
+	^smallButton := BrButton new
+		margin:
+			(BlInsets
+				top: 10
+				left: 10
+				bottom: 10
+				right: 0);
+		aptitude: BrLeftLabelButtonAptitude;
+		label: 'S'; 
+		action: [ 
+			self small];
+		yourself.
 ]
