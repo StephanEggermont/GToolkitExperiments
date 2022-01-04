@@ -43,13 +43,13 @@ DTCard >> initialize [
 		c horizontal fitContent.
 		c vertical fitContent].
 	self addChild: label.
-	self addAptitude: (BrGlamorousWithContextMenuAptitude
+	self aptitude: (BrGlamorousWithContextMenuAptitude
 			handle: [ BlElement new
 					size: 2@2;
 					geometry: BlEllipseGeometry new ]
 			content: [ DTCardEditor new
 				card: self;
-				requestFocus ])
+				requestFocus])
 ]
 
 { #category : #accessing }
