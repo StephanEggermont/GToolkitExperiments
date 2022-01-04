@@ -51,9 +51,9 @@ DTCardEditor >> initialize [
 			aptitude: (BrGlamorousButtonWithLabelAptitude new);
 			margin: (BlInsets top: 10 left: 5 bottom: 5 right: 0);
 			label: 'Delete';
-			action: [ :aButton |
+			action: [ 
 				card delete.
-				aButton fireEvent: BrDropdownHideWish new ]).	
+				self fireEvent: BrDropdownHideWish new ]).	
 		
 	self addChild: (BrScrollPane new
 		aptitude: BrScrollPaneAptitude + BrGlamorousWithVerticalScrollbarAptitude;

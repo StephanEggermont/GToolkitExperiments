@@ -163,7 +163,7 @@ DTCardSorting >> newCardEditor [
 				bottom: 10
 				right: 10);
 		padding: (BlInsets all: 2);
-		text: 'Prototype';
+		text: '';
 		addShortcut:
 			(BlShortcutWithAction new
 				combination: BlKeyCombination return;
