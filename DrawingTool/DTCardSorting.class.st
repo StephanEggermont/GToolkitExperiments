@@ -163,8 +163,8 @@ DTCardSorting >> newCardEditor [
 				combination: BlKeyCombination return;
 				action: [ :anEvent | 
 					self addNewCard.
-				textElement text: ''.
-				textElement requestFocus]);
+					textElement text: ''.
+					textElement requestFocus]);
 		when: BrEditorAcceptWish
 			do: [ :aWish | 
 				self addNewCard.

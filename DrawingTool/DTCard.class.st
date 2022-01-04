@@ -23,7 +23,14 @@ DTCard >> initialize [
 	self constraintsDo: [ :c |
 		c horizontal fitContent.
 		c vertical fitContent].
-	self addChild: label
+	self addChild: label.
+	self addAptitude: (BrGlamorousWithContextMenuAptitude
+			handle: [ BlElement new
+					size: 2@2;
+					geometry: BlEllipseGeometry new ]
+			content: [ DTCardEditor new
+				card: self;
+				requestFocus ])
 ]
 
 { #category : #accessing }
