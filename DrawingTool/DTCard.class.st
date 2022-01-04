@@ -2,10 +2,29 @@ Class {
 	#name : #DTCard,
 	#superclass : #BlElement,
 	#instVars : [
-		'label'
+		'label',
+		'app'
 	],
 	#category : #'DrawingTool-Drag & Drop'
 }
+
+{ #category : #accessing }
+DTCard >> app: aCardSorting [
+	app := aCardSorting
+]
+
+{ #category : #accessing }
+DTCard >> delete [
+	| group |
+	group := self parent.
+	group removeChild: self.
+	group childrenCount = 0 ifTrue: [
+		group parent removeChild: group.
+		app handler removePane: group] 
+	ifFalse: [
+		group constraintsDo: [ :c | 
+			c horizontal exact: 86*(group childrenCount sqrt roundUpTo: 1)]].
+]
 
 { #category : #accessing }
 DTCard >> initialize [

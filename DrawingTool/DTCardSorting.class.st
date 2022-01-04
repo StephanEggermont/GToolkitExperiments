@@ -90,6 +90,11 @@ DTCardSorting >> contentsArea [
 ]
 
 { #category : #accessing }
+DTCardSorting >> handler [
+	^handler
+]
+
+{ #category : #accessing }
 DTCardSorting >> initialize [
 	cardSize := 80@60.
 	groupWidth := 86
@@ -122,6 +127,7 @@ DTCardSorting >> newCard: aString [
 	^DTCard new
 		text: aString asRopedText;
 		addEventHandler: handler;
+		app: self;
 		yourself.
 ]
 

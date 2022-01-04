@@ -178,6 +178,11 @@ DTMultiPaneReorderingHandler >> panes: thePanes [
 ]
 
 { #category : #accessing }
+DTMultiPaneReorderingHandler >> removePane: aPane [
+	panes remove: aPane
+]
+
+{ #category : #accessing }
 DTMultiPaneReorderingHandler >> threeColumns [
 	<gtExample>
 	|pane columnBlock toDo doing done columns handler|
