@@ -73,7 +73,7 @@ DTCardSorting >> contentsArea [
 	| contentsPane columnBlock cardGroup doing done |
 	contentsPane := BlElement new
 		size: 800 @ 600;
-		background: Color lightGray muchLighter;
+		background: Color lightGray muchLighter lighter;
 		padding: (BlInsets all: 2);
 		layout: BlBasicLayout new;
 		yourself.
@@ -158,9 +158,9 @@ DTCardSorting >> newCardEditor [
 				fontSize: 14);
 		margin:
 			(BlInsets
-				top: 10
+				top: 11
 				left: 10
-				bottom: 10
+				bottom: 7
 				right: 10);
 		padding: (BlInsets all: 2);
 		text: '';
@@ -189,7 +189,7 @@ DTCardSorting >> open [
 	textElement := self newCardEditor.
 	bar := BlElement new
 		size: 800 @ 40;
-		background: Color lightGray lighter;
+		background: Color lightGray muchLighter;
 		layout: BlLinearLayout horizontal;
 		constraintsDo: [ :c | 
 			c horizontal matchParent.
@@ -212,6 +212,7 @@ DTCardSorting >> open [
 		addChild: pane;
 		requestLayout;
 		yourself.
+
 	aSpace := BlSpace new
 		addChild: scene;
 		extent: 800 @ 600;
