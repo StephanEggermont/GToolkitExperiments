@@ -70,22 +70,18 @@ DTCardSorting >> columnBlock: nrOfColumns [
 { #category : #accessing }
 DTCardSorting >> contentsArea [
 
-	| contentsPane columnBlock cardGroup doing done |
+	| contentsPane |
 	contentsPane := BlElement new
 		size: 800 @ 600;
 		background: Color lightGray muchLighter lighter;
 		padding: (BlInsets all: 2);
 		layout: BlBasicLayout new;
 		yourself.
-	columnBlock := self columnBlock.
-	cardGroup := columnBlock value.
 	cardGroups := OrderedCollection new.
 	handler := DTPaneCreatingReorderingHandler new
 		container: contentsPane;
 		panes: cardGroups;
 		yourself.
-	cardGroups do: [:group |
-		group when: BlPullStartEvent do: [ handler makeLast: group]]. 
 	^ contentsPane
 ]
 
