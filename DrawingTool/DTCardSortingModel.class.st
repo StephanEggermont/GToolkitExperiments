@@ -33,3 +33,9 @@ DTCardSortingModel >> initialize [
 	cardOrGroups := OrderedCollection new.
 	events := OrderedCollection new
 ]
+
+{ #category : #'as yet unclassified' }
+DTCardSortingModel >> newCard: aText [.
+	events add: (DTEvent type: #newCard
+		title: aText)
+]

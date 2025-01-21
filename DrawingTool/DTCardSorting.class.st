@@ -15,7 +15,8 @@ Class {
 		'smallButton',
 		'largeButton',
 		'cardSize',
-		'groupWidth'
+		'groupWidth',
+		'model'
 	],
 	#classInstVars : [
 		'newCardButton'
@@ -34,6 +35,7 @@ DTCardSorting >> addNewCard [
 	| group el|
 	group := (self columnBlock:1)value.
 	el := self newCard: self newText.				
+	model newCard: self newText.
 	group addChild: el.
 	pane addChild: group.
 	handler addPane: group.
@@ -92,6 +94,7 @@ DTCardSorting >> handler [
 
 { #category : #accessing }
 DTCardSorting >> initialize [
+	model := DTCardSortingModel new.
 	cardSize := 80@60.
 	groupWidth := 86
 ]
@@ -213,7 +216,8 @@ DTCardSorting >> open [
 		addChild: scene;
 		extent: 800 @ 600;
 		title: 'Cards'.
-	^ aSpace show
+	aSpace show.
+	^self
 ]
 
 { #category : #accessing }
