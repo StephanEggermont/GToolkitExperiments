@@ -1,5 +1,5 @@
 Class {
-	#name : #DTCard,
+	#name : #DTCardView,
 	#superclass : #BlElement,
 	#instVars : [
 		'label',
@@ -9,12 +9,12 @@ Class {
 }
 
 { #category : #accessing }
-DTCard >> app: aCardSorting [
+DTCardView >> app: aCardSorting [
 	app := aCardSorting
 ]
 
 { #category : #accessing }
-DTCard >> delete [
+DTCardView >> delete [
 	| group |
 	group := self parent.
 	group removeChild: self.
@@ -27,7 +27,7 @@ DTCard >> delete [
 ]
 
 { #category : #accessing }
-DTCard >> initialize [
+DTCardView >> initialize [
 	super initialize.
 	label :=BlTextElement new
 		text: '' asRopedText;
@@ -53,21 +53,21 @@ DTCard >> initialize [
 ]
 
 { #category : #accessing }
-DTCard >> large [
+DTCardView >> large [
 	self size: 120@80
 ]
 
 { #category : #accessing }
-DTCard >> small [
+DTCardView >> small [
 	self size: 80@60
 ]
 
 { #category : #accessing }
-DTCard >> text [
+DTCardView >> text [
 	^ label text
 ]
 
 { #category : #accessing }
-DTCard >> text: aString [
+DTCardView >> text: aString [
 	label text: aString asRopedText
 ]

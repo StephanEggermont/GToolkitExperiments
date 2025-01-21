@@ -120,7 +120,7 @@ DTCardSorting >> largeButton [
 
 { #category : #accessing }
 DTCardSorting >> newCard: aString [
-	^DTCard new
+	^DTCardView new
 		text: aString asRopedText;
 		addEventHandler: handler;
 		app: self;

@@ -10,7 +10,7 @@ Class {
 
 { #category : #accessing }
 DTCardEditor >> card [
-	^card ifNil: [card := DTCard new]
+	^card ifNil: [card := DTCardView new]
 ]
 
 { #category : #accessing }
