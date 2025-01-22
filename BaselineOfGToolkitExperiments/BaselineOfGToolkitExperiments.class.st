@@ -5,15 +5,7 @@ Class {
 }
 
 { #category : #'as yet unclassified' }
-BaselineOfGToolkitExperiments >> baseline: spec [
-	<baseline>
-	spec for: #common do: [ 
-		spec package: 'ContinuousDelivery'.
-		spec package: 'DrawingTool' ].
-]
-
-{ #category : #'as yet unclassified' }
-BaselineOfGToolkitExperiments >> loadLepiter [
+BaselineOfGToolkitExperiments class >> loadLepiter [
 	IceRepository registry  
 		detect: [ :aRepository |
 			aRepository name = 'GTCD' ]
@@ -25,4 +17,12 @@ BaselineOfGToolkitExperiments >> loadLepiter [
 			defaultDatabase reload ]
 		ifNone: [
 			self inform: 'Repository not found.' ]
+]
+
+{ #category : #'as yet unclassified' }
+BaselineOfGToolkitExperiments >> baseline: spec [
+	<baseline>
+	spec for: #common do: [ 
+		spec package: 'ContinuousDelivery'.
+		spec package: 'DrawingTool' ].
 ]
