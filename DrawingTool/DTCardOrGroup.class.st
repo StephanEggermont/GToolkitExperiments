@@ -7,7 +7,7 @@ Class {
 		'position',
 		'children'
 	],
-	#category : #DrawingTool
+	#category : #'DrawingTool-Model'
 }
 
 { #category : #accessing }

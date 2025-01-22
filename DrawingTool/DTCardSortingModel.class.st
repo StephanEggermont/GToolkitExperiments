@@ -5,7 +5,7 @@ Class {
 		'cardOrGroups',
 		'events'
 	],
-	#category : #DrawingTool
+	#category : #'DrawingTool-Model'
 }
 
 { #category : #accessing }

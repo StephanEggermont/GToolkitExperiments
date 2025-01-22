@@ -5,7 +5,7 @@ Class {
 		'type',
 		'title'
 	],
-	#category : #DrawingTool
+	#category : #'DrawingTool-Model'
 }
 
 { #category : #'as yet unclassified' }
