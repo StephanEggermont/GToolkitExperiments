@@ -64,7 +64,7 @@ DTCardView >> small [
 
 { #category : #accessing }
 DTCardView >> text [
-	^ label text
+	^ label text asString
 ]
 
 { #category : #accessing }

@@ -18,7 +18,8 @@ DTCardSortingDragHandler >> dragEndEvent: anEvent [
 		model drop: draggable at: anEvent position in: parent] 
 	ifFalse: [ 
 		parent removeChild: placeholder.
-		self addPaneWith: draggable at: anEvent].
+		self addPaneWith: draggable at: anEvent.
+		model drop: draggable at: anEvent position].
 	overlay detach.
 	panes do: [:each | |nrOfChildren|
 		nrOfChildren := each childrenCount.

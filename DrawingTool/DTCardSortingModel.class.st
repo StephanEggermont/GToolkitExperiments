@@ -18,14 +18,19 @@ DTCardSortingModel >> cardOrGroups: anObject [
 	cardOrGroups := anObject
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #event }
 DTCardSortingModel >> dragStart: aCard position: aPosition [
-	events add: (DTEvent type: #startDragCard title: aCard text asString,' -',aPosition asString)
+	events add: (DTEvent type: #startDragCard title: aCard text asString,' - ',aPosition asString)
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #event }
+DTCardSortingModel >> drop: aCard at: aPosition [
+	events add: (DTEvent type: #dropCard title: aCard text asString,' - ',aPosition asString)
+]
+
+{ #category : #event }
 DTCardSortingModel >> drop: aCard at: aPosition in: aGroup [
-	events add: (DTEvent type: #dropCard title: aCard text asString,' -',aPosition asString)
+	events add: (DTEvent type: #dropCardIn title: aCard text asString,' - ',aPosition asString,' - ',aGroup position asString)
 ]
 
 { #category : #accessing }
@@ -44,7 +49,7 @@ DTCardSortingModel >> initialize [
 	events := OrderedCollection new
 ]
 
-{ #category : #'as yet unclassified' }
+{ #category : #event }
 DTCardSortingModel >> newCard: aText [.
 	events add: (DTEvent type: #newCard
 		title: aText)
