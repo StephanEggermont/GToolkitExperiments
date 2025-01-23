@@ -80,7 +80,8 @@ DTCardSorting >> contentsArea [
 		layout: BlBasicLayout new;
 		yourself.
 	cardGroups := OrderedCollection new.
-	handler := DTPaneCreatingReorderingHandler new
+	handler := DTCardSortingDragHandler new
+		model: model;
 		container: contentsPane;
 		panes: cardGroups;
 		yourself.
