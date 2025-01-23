@@ -123,6 +123,16 @@ DTCardSorting >> largeButton [
 ]
 
 { #category : #accessing }
+DTCardSorting >> model [
+	^ model
+]
+
+{ #category : #accessing }
+DTCardSorting >> model: anObject [
+	model := anObject
+]
+
+{ #category : #accessing }
 DTCardSorting >> newCard: aString [
 	^DTCardView new
 		text: aString asRopedText;

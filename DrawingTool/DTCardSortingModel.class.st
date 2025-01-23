@@ -19,6 +19,11 @@ DTCardSortingModel >> cardOrGroups: anObject [
 ]
 
 { #category : #event }
+DTCardSortingModel >> changeText: oldText to: newText in: aPosition [
+	events add: (DTEvent type: #changeText title: oldText asString,' - ',newText asString,' - ',aPosition asString)
+]
+
+{ #category : #event }
 DTCardSortingModel >> dragStart: aCard position: aPosition [
 	events add: (DTEvent type: #startDragCard title: aCard text asString,' - ',aPosition asString)
 ]

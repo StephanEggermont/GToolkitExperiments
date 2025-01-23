@@ -44,6 +44,7 @@ DTCardEditor >> initialize [
 		do: [ :aWish | 
 			| aNewTitle |
 			aNewTitle := aWish text asString .
+			self model changeText: self card text to: aNewTitle in: self card position.
 			self card text: aNewTitle ]).
 	aContainer addChild: (
 			BrButton new
@@ -60,4 +61,9 @@ DTCardEditor >> initialize [
 		vFitContentLimited;
 		hFitContent;
 		content: aContainer)
+]
+
+{ #category : #'as yet unclassified' }
+DTCardEditor >> model [
+	^card app model
 ]

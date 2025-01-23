@@ -9,6 +9,11 @@ Class {
 }
 
 { #category : #accessing }
+DTCardView >> app [
+	^ app
+]
+
+{ #category : #accessing }
 DTCardView >> app: aCardSorting [
 	app := aCardSorting
 ]
