@@ -52,7 +52,9 @@ DTCardSorting >> columnBlock [
 		constraintsDo: [ :c | 
 			c horizontal exact: groupWidth*3.
 			c vertical fitContent ];
-		addEventHandler: BlPullHandler new ]
+		addEventHandler: (DTGroupDragHandler new
+			model: self model;
+			yourself) ]
 ]
 
 { #category : #accessing }
@@ -66,7 +68,9 @@ DTCardSorting >> columnBlock: nrOfColumns [
 		constraintsDo: [ :c | 
 			c horizontal exact: groupWidth*nrOfColumns.
 			c vertical fitContent ];
-		addEventHandler: BlPullHandler new ]
+		addEventHandler: (DTGroupDragHandler new
+			model: self model;
+			yourself) ]
 ]
 
 { #category : #accessing }

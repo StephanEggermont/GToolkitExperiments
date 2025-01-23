@@ -24,6 +24,11 @@ DTCardSortingModel >> changeText: oldText to: newText in: aPosition [
 ]
 
 { #category : #event }
+DTCardSortingModel >> dragGroup: aGroup position: aPosition [
+	events add: (DTEvent type: #startDragGroup title: aPosition asString)
+]
+
+{ #category : #event }
 DTCardSortingModel >> dragStart: aCard position: aPosition [
 	events add: (DTEvent type: #startDragCard title: aCard text asString,' - ',aPosition asString)
 ]
@@ -36,6 +41,11 @@ DTCardSortingModel >> drop: aCard at: aPosition [
 { #category : #event }
 DTCardSortingModel >> drop: aCard at: aPosition in: aGroup [
 	events add: (DTEvent type: #dropCardIn title: aCard text asString,' - ',aPosition asString,' - ',aGroup position asString)
+]
+
+{ #category : #event }
+DTCardSortingModel >> dropGroup: aGroup position: aPosition [
+	events add: (DTEvent type: #dropGroup title: aPosition asString)
 ]
 
 { #category : #accessing }

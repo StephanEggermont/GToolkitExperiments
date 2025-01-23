@@ -92,7 +92,7 @@ DTPaneCreatingReorderingHandler >> dragStartEvent: anEvent [
 { #category : #accessing }
 DTPaneCreatingReorderingHandler >> fittingColumns [
 	<gtExample>
-	| pane columnBlock toDo doing done columns handler |
+	| pane columnBlock toDo columns handler |
 	pane := BlElement new
 		size: 800 @ 600;
 		background: Color lightGray muchLighter;

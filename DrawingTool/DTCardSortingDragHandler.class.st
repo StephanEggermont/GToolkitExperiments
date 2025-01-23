@@ -4,8 +4,24 @@ Class {
 	#instVars : [
 		'model'
 	],
-	#category : #DrawingTool
+	#category : #'DrawingTool-Drag & Drop'
 }
+
+{ #category : #'as yet unclassified' }
+DTCardSortingDragHandler >> columnBlock [
+	^ [ BlElement new
+		border: (BlBorder paint: Color lightGray lighter);
+		background: Color yellow muchLighter muchLighter lighter;
+		layout: BlFlowLayout new;
+		margin: (BlInsets all: 2);
+		padding: (BlInsets top: 10 left: 2 bottom: 2 right: 2);
+		constraintsDo: [ :c | 
+			c horizontal exact: 86*3.
+			c vertical fitContent ];
+		addEventHandler: (DTGroupDragHandler new
+			model: self model;
+			yourself) ]
+]
 
 { #category : #'as yet unclassified' }
 DTCardSortingDragHandler >> dragEndEvent: anEvent [
