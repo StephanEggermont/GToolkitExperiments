@@ -89,7 +89,7 @@
 					"__type" : "time",
 					"time" : {
 						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2025-01-22T12:46:11.031261+01:00"
+						"dateAndTimeString" : "2025-01-23T15:06:54.383059+01:00"
 					}
 				},
 				"editEmail" : {
@@ -100,7 +100,7 @@
 					"__type" : "time",
 					"time" : {
 						"__type" : "dateAndTime",
-						"dateAndTimeString" : "2025-01-22T12:46:11.031261+01:00"
+						"dateAndTimeString" : "2025-01-23T15:16:53.240866+01:00"
 					}
 				},
 				"uid" : {
@@ -110,7 +110,44 @@
 				"paragraphStyle" : {
 					"__type" : "textStyle"
 				},
-				"string" : ""
+				"string" : "The card sorting app has the following events to handle:\n- new card\n- change text of card\n- delete card\n- start drag card\n- start drag group\n- drop card on background\n- drop card in group"
+			},
+			{
+				"__type" : "textSnippet",
+				"children" : {
+					"__type" : "snippets",
+					"items" : [ ]
+				},
+				"createEmail" : {
+					"__type" : "email",
+					"emailString" : "<unknown>"
+				},
+				"createTime" : {
+					"__type" : "time",
+					"time" : {
+						"__type" : "dateAndTime",
+						"dateAndTimeString" : "2025-01-23T15:17:01.383359+01:00"
+					}
+				},
+				"editEmail" : {
+					"__type" : "email",
+					"emailString" : "<unknown>"
+				},
+				"editTime" : {
+					"__type" : "time",
+					"time" : {
+						"__type" : "dateAndTime",
+						"dateAndTimeString" : "2025-01-23T15:17:24.416883+01:00"
+					}
+				},
+				"uid" : {
+					"__type" : "uid",
+					"uidString" : "LGYHAMLoDQCGjHB6DN0YrA=="
+				},
+				"paragraphStyle" : {
+					"__type" : "textStyle"
+				},
+				"string" : "For now we can ignore events around the dragging itself, or typing text"
 			}
 		]
 	},
