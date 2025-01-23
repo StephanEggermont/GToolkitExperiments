@@ -8,7 +8,7 @@ Class {
 BaselineOfGToolkitExperiments class >> loadLepiter [
 	IceRepository registry  
 		detect: [ :aRepository |
-			aRepository name = 'GToolkit' ]
+			aRepository name = 'GToolkitExperiments' ]
 		ifFound: [ :aRepository | 
 			| defaultDatabase currentProperties |
 			defaultDatabase := LeDatabasesRegistry defaultLogicalDatabase.
